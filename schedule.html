@@ -77,8 +77,8 @@
         <link href="css/responsive.css" rel="stylesheet">
     <!--<link href="http://static.triballabs.net/Bootstrap/css/tribal-bootstrap.css" rel="stylesheet">-->
     <!--<link href="http://static.triballabs.net/Bootstrap/css/tribal-timetable.css" rel="stylesheet">-->
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
+    <!--<script src="js/html5shiv.js"></script>-->
+    <!--<script src="js/respond.min.js"></script>-->
     <script type="text/javascript" src="js/tribal.js"></script>
     <script type="text/javascript" src="js/tribal-shared.js"></script>
     <script type="text/javascript" src="js/tribal-timetable.js"></script>
@@ -162,7 +162,7 @@
             </style>
 
 
-            <div class="timetable" data-days="5" data-hours="15" style="height: 400px; overflow:auto; white-space: nowrap;">
+            <div hidden class="timetable" data-days="5" data-hours="16" style=" overflow-x:auto; overflow-y: hidden; white-space: nowrap;" id="timetable">
                 <ul class="tt-times" style="padding-left: 39px;">
                     <il class="tt-time" data-time="0" style="width: 130px; height: 350px; margin-bottom: -350px;">
                         11<span class="hidden-phone">.00</span></il>
@@ -192,18 +192,20 @@
                         23<span class="hidden-phone">.00</span></il>
                     <il class="tt-time" data-time="13" style="width: 131px;">
                         00<span class="hidden-phone">.00</span></il>
+                    <il class="tt-time" data-time="14" style="width: 131px;">
+                        01<span class="hidden-phone">.00</span></il>
                 </ul>
-                <div class="tt-days" style="width: 39px; top: 29px;">
-                    <div class="tt-day" data-day="0" style="height: 93px; width: 1157px; margin-right: -1128px;">
-                        M<span class="hidden-phone">on</span></div>
-                    <div class="tt-day" data-day="1" style="height: 44px; width: 1157px; margin-right: -1128px;">
-                        T<span class="hidden-phone">ue</span></div>
-                    <div class="tt-day" data-day="2" style="height: 67px; width: 1157px; margin-right: -1128px;">
-                        W<span class="hidden-phone">ed</span></div>
-                    <div class="tt-day" data-day="3" style="height: 44px; width: 1157px; margin-right: -1128px;">
-                        T<span class="hidden-phone">hu</span></div>
-                    <div class="tt-day" data-day="4" style="height: 18px; width: 1157px; margin-right: -1128px;">
-                        F<span class="hidden-phone">ri</span></div>
+                <div class="tt-days" style="width: 39px; top: 29px;" id="ttdays">
+                    <!--<div class="tt-day" data-day="0" style="height: 93px; width: 1157px; margin-right: -1128px;">-->
+                        <!--M<span class="hidden-phone">on</span></div>-->
+                    <!--<div class="tt-day" data-day="1" style="height: 44px; width: 1157px; margin-right: -1128px;">-->
+                        <!--T<span class="hidden-phone">ue</span></div>-->
+                    <!--<div class="tt-day" data-day="2" style="height: 67px; width: 1157px; margin-right: -1128px;">-->
+                        <!--W<span class="hidden-phone">ed</span></div>-->
+                    <!--<div class="tt-day" data-day="3" style="height: 44px; width: 1157px; margin-right: -1128px;">-->
+                        <!--T<span class="hidden-phone">hu</span></div>-->
+                    <!--<div class="tt-day" data-day="4" style="height: 18px; width: 1157px; margin-right: -1128px;">-->
+                        <!--F<span class="hidden-phone">ri</span></div>-->
                 </div>
                 <ul class="tt-events" style="left: 39px; top: 29px;">
                 <li class="tt-event btn-success" data-id="10" data-day="0" data-start="0" data-duration="1"
@@ -362,75 +364,13 @@
                     14:50 - 16:20<br>
                     B125 ACL Lecture
                 </li>
-                <li class="tt-event btn-warning" data-id="40" data-day="3" data-start="0" data-duration="3"
-                    rel="tooltip" unselectable="on"
-                    data-original-title="
-                        Marking&lt;br&gt;
-                        09:00 - 12:00&lt;br&gt;
-                        Marking">
-                    Marking<br>
-                    09:00 - 12:00<br>
-                    Marking
-                </li>
-                <li class="tt-event btn-danger" data-id="41" data-day="3" data-start="3" data-duration="1.75"
-                    rel="tooltip" unselectable="on"
-                    data-original-title="
-                        Planning meeting&lt;br&gt;
-                        12:00 - 13:45&lt;br&gt;
-                        A223 Meeting">
-                    Planning meeting<br>
-                    12:00 - 13:45<br>
-                    A223 Meeting
-                </li>
-                <li class="tt-event btn-danger" data-id="42" data-day="3" data-start="5" data-duration="0.5"
-                    rel="tooltip" unselectable="on"
-                    data-original-title="
-                        Fred Brown&lt;br&gt;
-                        14:00 - 14:30&lt;br&gt;
-                        B137 Viva">
-                    Fred Brown<br>
-                    14:00 - 14:30<br>
-                    B137 Viva
-                </li>
-                <li class="tt-event btn-danger" data-id="43" data-day="3" data-start="5.5" data-duration="0.5"
-                    rel="tooltip" unselectable="on"
-                    data-original-title="
-                        Bob Smith&lt;br&gt;
-                        14:30 - 15:00&lt;br&gt;
-                        B137 Viva">
-                    Bob Smith<br>
-                    14:30 - 15:00<br>
-                    B137 Viva
-                </li>
-                <li class="tt-event btn-danger" data-id="44" data-day="3" data-start="6" data-duration="0.5"
-                    rel="tooltip" unselectable="on"
-                    data-original-title="
-                        Jane Jones&lt;br&gt;
-                        15:00 - 15:30&lt;br&gt;
-                        B137 Viva">
-                    Jane Jones<br>
-                    15:00 - 15:30<br>
-                    B137 Viva
-                </li>
-                <li class="tt-event btn-danger" data-id="45" data-day="3" data-start="6.5" data-duration="0.5"
-                    rel="tooltip" unselectable="on"
-                    data-original-title="
-                        Harry Franks&lt;br&gt;
-                        15:30 - 16:00&lt;br&gt;
-                        B137 Viva">
-                    Harry Franks<br>
-                    15:30 - 16:00<br>
-                    B137 Viva
-                </li>
-                <li class="tt-event btn-info" data-id="50" data-day="4" data-start="0" data-duration="8"
-                    rel="tooltip" unselectable="on"
-                    data-original-title="
-                        Not working">
-                    Not working
-                </li>
                 </ul>
 
             </div>
+        </div>
+
+        <div class="row" id="testingg">
+
         </div>
 
         <!--<div class="row">-->
@@ -529,43 +469,44 @@
             });
 
             function fetchResults(festival) {
-                    $('#spinner').show();
-                    var username = $('#lastfmentry').val();
-                    var token = getAuthKey();
-                    console.log(username);
-                    if( $('#reccobox').is(':checked')) {
-                        var url = 'http://glasto.cloudapp.net:80/r/' + festival + "/" + token;
-                    } else {
-                        var url = 'http://localhost:80/' + festival + "/" + username;
-                    }
-                    if($("#histbox").is(':checked')) {
-                        var year = $('#yearentry').val();
-                        url = url + "?year=" + year;
-                    }
+
+                    var url = 'http://localhost:80/s/g/castroneves121?year=2015';
+
+
+                    console.log("Sending");
                     $.ajax({
                         url: url,
                         dataType: 'JSON',
                         type: 'GET',
                         success: function (json) {
-                            clearTable();
-                            var tr;
-                            for (var i = 0; i < json.length; i++) {
-                                tr = $('<tr/>');
-                                tr.append("<td>" + json[i].name + "</td>");
-                                tr.append("<td>" + json[i].day + "</td>");
-                                tr.append("<td>" + json[i].stage + "</td>");
-                                tr.append("<td>" + json[i].status + "</td>");
-                                console.log(tr);
-                                setTableCss(tr,json[i].status);
-                                $('#results').append(tr);
-                            }
-                            $('#spinner').hide();
+                            var days = Object.keys(json.sched);
+                            console.log(days.length);
+                            console.log(days.size);
+                            setupTableConfig(days);
+                            console.log("Boom");
+                            console.log(json.sched);
+                            console.log();
+                            console.log(json['sched'][0]);
+                            $('#testingg').html(json);
+
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             $('#results').html("ERROR - That festival may not have run that year, or the LastFM account does not exist");
                             $('#spinner').hide();
                         }
                     });
+            }
+
+            function setupTableConfig(days) {
+                $('#timetable').data('days', days.length);
+                 for (var i = 0; i < days.length; i++) {
+                    $('#ttdays').append("<div class=\"tt-day\" data-day=\"" + i + "\">" + days[i] + "</span></div>");
+                 }
+                 $('.timetable').each(function (e) {
+                    $(this).initialiseTT();
+                    $(this).resizeTimetable();
+                 });
+                 $('#timetable').show();
             }
 
             function clearTable() {
@@ -635,10 +576,10 @@
                 return window.location.search.replace("?token=", "");
             }
         </script>
-        <script src="js/jquery.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.prettyPhoto.js"></script>
-        <script src="js/jquery.isotope.min.js"></script>
+        <!--<script src="js/jquery.js"></script>-->
+        <!--<script src="js/bootstrap.min.js"></script>-->
+        <!--<script src="js/jquery.prettyPhoto.js"></script>-->
+        <!--<script src="js/jquery.isotope.min.js"></script>-->
         <script src="js/main.js"></script>
 
 

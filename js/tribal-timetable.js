@@ -6,12 +6,9 @@ $(function () {
     $('.timetable').resize(function (e) {
         $(this).resizeTimetable();
     });
-    $(document).ready(function (e) {
-        $('.timetable').each(function (e) {
-            $(this).initialiseTT();
-            $(this).resizeTimetable();
-        });
-    });
+
+
+
 
     $.fn.initialiseTT = function () {
         var daysArr = new Array(new Array(), new Array(), new Array(), new Array(), new Array(), new Array(), new Array());
