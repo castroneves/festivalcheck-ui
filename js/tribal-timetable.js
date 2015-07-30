@@ -131,8 +131,8 @@ $(function () {
         jQuery('.tt-events', this).css('left', daysWidth);
         jQuery('.tt-events', this).css('top', timesHeight);
         /* check why different between height and width - times/days */
-        var ttWidth = $(this).width();
-        var width = $(this).width() - jQuery('.tt-days', this).width() - ttDaysExtras;
+        var ttWidth = $(this).width() * 2;
+        var width = ($(this).width() * 2) - jQuery('.tt-days', this).width() - ttDaysExtras;
 //        var width = 1500 - jQuery('.tt-days', this).width() - ttDaysExtras;
         var height = $(this).height();
         var hours = $(this).data('hours');
@@ -149,8 +149,11 @@ $(function () {
         // set sizes of the times
         jQuery('.tt-time', this).each(function (i) {
             if (i < hours - 1) {
+                var timeStart = $(this).data('time') * hourWidth;
+                $(this).css('left', timeStart + daysWidth);
                 $(this).width(timeWidth);
                 $(this).height(timeHeight);
+//                $(this).float('left')
 //                $(this).display('table-cell')
                 $(this).css('margin-bottom', timeMarginBottom);
                 widthLeft -= hourWidth;
