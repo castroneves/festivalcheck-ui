@@ -133,8 +133,10 @@ $(function () {
         /* check why different between height and width - times/days */
         var ttWidth = $(this).width();
         var width = $(this).width() - jQuery('.tt-days', this).width() - ttDaysExtras;
+//        var width = 1500 - jQuery('.tt-days', this).width() - ttDaysExtras;
         var height = $(this).height();
         var hours = $(this).data('hours');
+//        var hours = 10;
         var hourWidth = Math.floor(width / hours);
         var timeWidth = hourWidth - parseInt(jQuery('.tt-time', this).first().css('padding-left')) - parseInt(jQuery('.tt-time', this).first().css('padding-right')) - parseInt(jQuery('.tt-time', this).first().css('border-left-width')) - parseInt(jQuery('.tt-time', this).first().css('border-right-width'));
         var widthLeft = width;
@@ -149,6 +151,7 @@ $(function () {
             if (i < hours - 1) {
                 $(this).width(timeWidth);
                 $(this).height(timeHeight);
+//                $(this).display('table-cell')
                 $(this).css('margin-bottom', timeMarginBottom);
                 widthLeft -= hourWidth;
             }
@@ -156,6 +159,8 @@ $(function () {
                 $(this).width(widthLeft - parseInt($(this).css('padding-left')) - parseInt($(this).css('padding-right')) - parseInt($(this).css('border-left-width')) - parseInt($(this).css('border-right-width')));
             }
         });
+
+
 
         // set day sizes
         jQuery('.tt-day', this).each(function (i) {
@@ -172,14 +177,16 @@ $(function () {
         });
 
         jQuery('.tt-event', this).each(function (i) {
-            var eventStart = $(this).data('start') * hourWidth;
-            var eventWidth = Math.max($(this).data('duration') * hourWidth - 9, 1);
-            var eventDay = $(this).data('day');
+                    var eventStart = $(this).data('start') * hourWidth;
+                    var eventWidth = Math.max($(this).data('duration') * hourWidth - 9, 1);
+                    var eventDay = $(this).data('day');
 
-            $(this).css('top', dayYOffset[eventDay] + $(this).data('top'));
-            $(this).css('left', eventStart);
-            $(this).width(eventWidth);
-        });
+                    $(this).css('top', dayYOffset[eventDay] + $(this).data('top'));
+                    $(this).css('left', eventStart);
+                    $(this).width(eventWidth);
+                });
+
+
 
         return false;
     };
