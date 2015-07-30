@@ -43,7 +43,7 @@ $(function () {
                     // check last end time in column and see if it overlaps
                     var lastEv = daysArr[$(this).data('day')][i].last();
 
-                    if (lastEv[1] + lastEv[2] <= $(this).data('start')) {
+                    if (parseFloat(lastEv[1]) + parseFloat(lastEv[2]) <= parseFloat($(this).data('start'))) {
                         daysArr[dayInt][i].push(new Array($(this).data('id'), $(this).data('start'), $(this).data('duration'), $(this).getHiddenDimensions(false).height));
                         $(this).data('column', i);
                         placed = true;
