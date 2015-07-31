@@ -38,6 +38,7 @@ $(function () {
                     daysArr[dayInt][i].push(new Array($(this).data('id'), $(this).data('start'), $(this).data('duration'), $(this).getHiddenDimensions(false).height));
                     $(this).data('column', i);
                     placed = true;
+                    break;
                 }
                 else {
                     // check last end time in column and see if it overlaps
@@ -47,6 +48,7 @@ $(function () {
                         daysArr[dayInt][i].push(new Array($(this).data('id'), $(this).data('start'), $(this).data('duration'), $(this).getHiddenDimensions(false).height));
                         $(this).data('column', i);
                         placed = true;
+                        break;
                     }
                 }
             }
@@ -81,7 +83,11 @@ $(function () {
             for (i = 0; i < $(this).data('column'); i++) {
                 top += daysArr[$(this).data('day')][i].last() + 10;
             }
-            $(this).data('top', top);
+            if ($(this).data('column') == 0) {
+                $(this).data('top', top + 1);
+            } else {
+                $(this).data('top', top - (4 * $(this).data('column')) + 1);
+            }
         });
 
         jQuery("[rel=tooltip]", this).tooltip();
@@ -90,7 +96,7 @@ $(function () {
         jQuery('.tt-day', this).each(function (i) {
             var height = 0;
             for (j = 0; j < daysArr[i].length; j++) {
-                height += daysArr[i][j].last() + 10;
+                height += daysArr[i][j].last() + 6;
             }
             if (height > 0) {
                 $(this).height(height - 5);

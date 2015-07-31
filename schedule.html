@@ -467,7 +467,7 @@
 
             function fetchResults(festival) {
 
-                    var url = 'http://localhost:80/s/g/castroneves121?year=2015';
+                    var url = 'http://localhost:80/s/g/potter88?year=2015';
 
 
                     console.log("Sending");
@@ -482,13 +482,17 @@
                             for (var i=0; i<days.length; i++) {
                                 console.log(json.sched[days[i]]);
                                 var acts = json.sched[days[i]];
-                                for ( act of acts ) {
-                                    $('#ttevents').append("<li class=\"tt-event btn-success\" data-day=\"" + i + "\" data-start=\"" + act.ttStart + "\" data-duration=\"" + act.ttDuration + "\" rel=\"tooltip\" unselectable=\"on\">" + act.name + "<br>" + act.stage + "<br>" + act.startTime + " - " + act.endTime + "</li>");
+                                if ( typeof acts !== "undefined" ) {
+                                    for ( act of acts ) {
+                                        $('#ttevents').append("<li class=\"tt-event btn-success\" data-id=\"" + act.name + "\" data-day=\"" + i + "\" data-start=\"" + act.ttStart + "\" data-duration=\"" + act.ttDuration + "\" rel=\"tooltip\" unselectable=\"on\">" + act.name + "<br>" + act.stage + "<br>" + act.startTime + " - " + act.endTime + "</li>");
+                                    }
                                 }
 
                                 var clashes = json.clash[days[i]];
-                                for ( act of clashes ) {
-                                    $('#ttevents').append("<li class=\"tt-event btn-warning\" data-day=\"" + i + "\" data-start=\"" + act.ttStart + "\" data-duration=\"" + act.ttDuration + "\" rel=\"tooltip\" unselectable=\"on\">" + act.name + "<br>" + act.stage + "<br>" + act.startTime + " - " + act.endTime + "</li>");
+                                if ( typeof clashes !== "undefined" ) {
+                                    for ( act of clashes ) {
+                                        $('#ttevents').append("<li class=\"tt-event btn-warning\" data-id=\"" + act.name + "\" data-day=\"" + i + "\" data-start=\"" + act.ttStart + "\" data-duration=\"" + act.ttDuration + "\" rel=\"tooltip\" unselectable=\"on\">" + act.name + "<br>" + act.stage + "<br>" + act.startTime + " - " + act.endTime + "</li>");
+                                    }
                                 }
 
                             }

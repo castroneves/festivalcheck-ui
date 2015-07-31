@@ -15,7 +15,7 @@
 .tt-times
 {
 	position:absolute;
-	height: 50px;
+	height: 40px;
 	margin:0px;
 	padding: 0px 0px 0px 116px;
     border-width: 0px;
@@ -33,8 +33,8 @@
     margin: 0px;
 
     border-width: 0px;
-	border-right: 1px solid rgb(220,220,220);
-	border-right: 1px solid rgba(125,125,125,0.1);
+	border-right: 2px solid rgb(220,220,220);
+	border-right: 1px solid rgba(125,125,125,0.2);
 	display: table-row;
 	overflow:hidden;
 }
@@ -61,10 +61,11 @@
 /*	overflow:hidden;
 	text-overflow: ellipsis;*/
     margin: 0px;
+    margin-bottom: 0px;
     border-width: 0px;
 	padding:5px;
 	min-height:30px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid rgba(125,125,125,1.1);
 }
 .tt-days .tt-day:last-child
 {
@@ -90,8 +91,10 @@
 /*	text-overflow: ellipsis;*/
 	border: 1px solid #888;
 /*	background:#fff;*/
-	padding:4px;
-	padding-bottom:5px;
+    padding-right:5px;
+	padding-left:2px;
+	padding-bottom:2px;
+	padding-top:1px;
 	white-space: nowrap;
 	text-shadow: none;
   -webkit-border-radius: 4px;
