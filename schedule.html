@@ -29,6 +29,11 @@
             .top15 { margin-top:15px; }
             .top17 { margin-top:17px; }
             .top30 { margin-top:30px; }
+            .bottom15 {
+                margin:auto;
+                margin-bottom:15px;
+                width:35%;
+            }
 
             .three-row { height: 55px; }
             .no-margin {
@@ -43,6 +48,10 @@
             .pad {
                 margin-left:280px;
                 margin-right:280px;
+            }
+
+            .hidden {
+                visibility: hidden;
             }
 
             .width50 {
@@ -71,10 +80,11 @@
         <script src="./index_files/jquery.min.js"></script><style type="text/css"></style>
         <script src="./index_files/modernizr-2.8.3-respond-1.4.2.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link href="css/prettyPhoto.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
         <link href="css/responsive.css" rel="stylesheet">
+    <link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
     <!--<link href="http://static.triballabs.net/Bootstrap/css/tribal-bootstrap.css" rel="stylesheet">-->
     <!--<link href="http://static.triballabs.net/Bootstrap/css/tribal-timetable.css" rel="stylesheet">-->
     <!--<script src="js/html5shiv.js"></script>-->
@@ -125,11 +135,29 @@
                 <!--<input class="form-control" name="search" placeholder="Search Here" autocomplete="off" autofocus="autofocus" type="text">-->
             <!--</div>-->
         <!--</div>-->
-        <div class="row width50">
+
+        <div class="row bottom15">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-danger active">
+                    <input type="radio" name="recmode" id="plays" autocomplete="off" checked> Played Artists
+                </label>
+                <label class="btn btn-danger">
+                    <input type="radio" name="recmode" id="recco" autocomplete="off"> Reccommended Artists
+                </label>
+                <label class="btn btn-danger">
+                    <input type="radio" name="recmode" id="both" autocomplete="off"> Both
+                </label>
+            </div>
+        </div>
+
+        <div class="row top15 width50">
             <!--<div class="form-group">-->
-                <div class="input-group input-group-lg">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                <div class="input-group input-group-lg" >
+                    <!--<span class="input-group-addon " ><i class="icon-large icon-last-fm"></i></span>-->
+                    <span class="input-group-addon" ><i class="fa fa-lastfm-square fa-lg" style="color:#d51007"></i></span>
+
                     <input type="text" class="form-control input-lg" placeholder="Last FM ID">
+                    <span  id="spinner" class="input-group-addon" ><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
                 </div>
             <!--</div>-->
 
@@ -138,18 +166,18 @@
             <!--</div>-->
         </div>
 
-        <div class="row top15">
+        <div class="row top15 ">
             <div class="container">
                 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
-                    <button type="button" class="btn btn-default" onclick="fetchResults(&#39;glastonbury&#39;)">Glastonbury</button>
-                    <button type="button" class="btn btn-default" onclick="fetchResults(&#39;iow&#39;)">Isle of Wight</button>
-                    <button type="button" class="btn btn-default" onclick="fetchResults(&#39;latitude&#39;)">Latitude</button>
-                    <button type="button" class="btn btn-default" onclick="fetchResults(&#39;download&#39;)">Download</button>
-                    <button type="button" class="btn btn-default" onclick="fetchResults(&#39;80srewind&#39;)">80s Rewind</button>
-                    <button type="button" class="btn btn-default" onclick="fetchResults(&#39;bestival&#39;)">Bestival</button>
-                    <button type="button" class="btn btn-default" onclick="fetchResults(&#39;reading&#39;)">Reading</button>
-                    <button type="button" class="btn btn-default" onclick="fetchResults(&#39;vvvchelmsford&#39;)">V Chelmsford</button>
-                    <button type="button" class="btn btn-default" onclick="fetchResults(&#39;vvvstafford&#39;)">V Stafford</button>
+                    <button type="button " class="btn btn-danger" onclick="fetchResults(&#39;glastonbury&#39;)">Glastonbury</button>
+                    <button type="button"  disabled="true"  class="btn btn-danger" onclick="fetchResults(&#39;iow&#39;)">Isle of Wight</button>
+                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;latitude&#39;)">Latitude</button>
+                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;download&#39;)">Download</button>
+                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;80srewind&#39;)">80s Rewind</button>
+                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;bestival&#39;)">Bestival</button>
+                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;reading&#39;)">Reading</button>
+                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;vvvchelmsford&#39;)">V Chelmsford</button>
+                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;vvvstafford&#39;)">V Stafford</button>
                 </div>
             </div>
         </div>
@@ -161,6 +189,7 @@
                 <!--<link href="http://static.triballabs.net/Bootstrap/css/tribal-timetable.css" rel="stylesheet">-->
             </style>
 
+            <div id="message"></div>
 
             <div hidden class="timetable" data-days="5" data-hours="16" style=" overflow-x:auto; overflow-y: hidden; white-space: nowrap;" id="timetable">
                 <ul class="tt-times" style="padding-left: 39px;">
@@ -196,179 +225,16 @@
                         01<span class="hidden-phone">.00</span></il>
                 </ul>
                 <div class="tt-days" style="width: 39px; top: 29px;" id="ttdays">
-                    <!--<div class="tt-day" data-day="0" style="height: 93px; width: 1157px; margin-right: -1128px;">-->
-                        <!--M<span class="hidden-phone">on</span></div>-->
-                    <!--<div class="tt-day" data-day="1" style="height: 44px; width: 1157px; margin-right: -1128px;">-->
-                        <!--T<span class="hidden-phone">ue</span></div>-->
-                    <!--<div class="tt-day" data-day="2" style="height: 67px; width: 1157px; margin-right: -1128px;">-->
-                        <!--W<span class="hidden-phone">ed</span></div>-->
-                    <!--<div class="tt-day" data-day="3" style="height: 44px; width: 1157px; margin-right: -1128px;">-->
-                        <!--T<span class="hidden-phone">hu</span></div>-->
-                    <!--<div class="tt-day" data-day="4" style="height: 18px; width: 1157px; margin-right: -1128px;">-->
-                        <!--F<span class="hidden-phone">ri</span></div>-->
+
                 </div>
                 <ul class="tt-events" style="left: 39px; top: 29px;" id="ttevents">
-                    <!--<li class="tt-event btn-success" data-id="10" data-day="0" data-start="0" data-duration="1"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="">-->
-                        <!--AS Applied Maths (ASAMath 1)<br>-->
-                        <!--09:00 - 10:30<br>-->
-                        <!--C318 ACL Lecture-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-success" data-id="11" data-day="0" data-start="1.6667" data-duration="1.5"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--A2 Statistics (A2Stat 2)&lt;br&gt;-->
-                            <!--10:40 - 12:10&lt;br&gt;-->
-                            <!--C310 ACL Lecture">-->
-                        <!--A2 Statistics (A2Stat 2)<br>-->
-                        <!--10:40 - 12:10<br>-->
-                        <!--C310 ACL Lecture-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-primary no-margin" data-id="12" data-day="0" data-start="3.5667" data-duration="1.5"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--A2 Pure Maths (A2PMath 1)&lt;br&gt;-->
-                            <!--13:10 - 14:40&lt;br&gt;-->
-                            <!--B125 ACL Tutorial">-->
-                        <!--A2 Pure Maths (A2PMath 1)<br>-->
-                        <!--13:10 - 14:40<br>-->
-                        <!--B125 ACL Tutorial-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-warning" data-id="13" data-day="0" data-start="12"-->
-                        <!--data-duration="1.8333" rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--Marking&lt;br&gt;-->
-                            <!--14:40 - 16:30&lt;br&gt;-->
-                            <!--Self managed time">-->
-                        <!--Marking<br>-->
-                        <!--14:40 - 16:30<br>-->
-                        <!--Self managed time-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-danger" data-id="14" data-day="0" data-start="6" data-duration="0.25"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--Bob Smith&lt;br&gt;-->
-                            <!--15:00 - 15:15&lt;br&gt;-->
-                            <!--Meeting">-->
-                        <!--Bob Smith<br>-->
-                        <!--15:00 - 15:15<br>-->
-                        <!--Meeting-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-danger" data-id="15" data-day="0" data-start="6.75" data-duration="0.25"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--Jane Jones&lt;br&gt;-->
-                            <!--15:45 - 16:00&lt;br&gt;-->
-                            <!--Meeting">-->
-                        <!--Jane Jones<br>-->
-                        <!--15:45 - 16:00<br>-->
-                        <!--Meeting-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-warning" data-id="20" data-day="1" data-start="0" data-duration="1.6667"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--Marking&lt;br&gt;-->
-                            <!--09:00 - 10:40&lt;br&gt;-->
-                            <!--Self managed time">-->
-                        <!--Marking<br>-->
-                        <!--09:00 - 10:40<br>-->
-                        <!--Self managed time-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-success" data-id="21" data-day="1" data-start="1.6667" data-duration="1.5"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--AS Pure Maths (ASPMath)&lt;br&gt;-->
-                            <!--10:40 - 12:10&lt;br&gt;-->
-                            <!--C300 ACL Lecture">-->
-                        <!--AS Pure Maths (ASPMath)<br>-->
-                        <!--10:40 - 12:10<br>-->
-                        <!--C300 ACL Lecture-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-danger" data-id="22" data-day="1" data-start="3.1667" data-duration="0.25"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--Fred Brown&lt;br&gt;-->
-                            <!--12:10 - 12:25&lt;br&gt;-->
-                            <!--Meeting">-->
-                        <!--Fred Brown<br>-->
-                        <!--12:10 - 12:25<br>-->
-                        <!--Meeting-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-success" data-id="23" data-day="1" data-start="4.1667" data-duration="1.5"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--AS Applied Maths (ASAMath 1)&lt;br&gt;-->
-                            <!--13:10 - 14:40&lt;br&gt;-->
-                            <!--C318 ACL Lecture">-->
-                        <!--AS Applied Maths (ASAMath 1)<br>-->
-                        <!--13:10 - 14:40<br>-->
-                        <!--C318 ACL Lecture-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-primary no-margin" data-id="24" data-day="1" data-start="5.8334" data-duration="1.5"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--A2 Statistics (A2Stat 2)&lt;br&gt;-->
-                            <!--14:50 - 16:20&lt;br&gt;-->
-                            <!--B121 ACL Tutorial">-->
-                        <!--A2 Statistics (A2Stat 2)<br>-->
-                        <!--14:50 - 16:20<br>-->
-                        <!--B121 ACL Tutorial-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-info" data-id="30" data-day="2" data-start="0" data-duration="8"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--Open day">-->
-                        <!--Open day-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-primary no-margin" data-id="31" data-day="2" data-start="0" data-duration="1.5"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--AS Applied Maths (ASAMath 1)&lt;br&gt;-->
-                            <!--09:00 - 10:30&lt;br&gt;-->
-                            <!--C318 ACL Tutorial">-->
-                        <!--AS Applied Maths (ASAMath 1)<br>-->
-                        <!--09:00 - 10:30<br>-->
-                        <!--C318 ACL Tutorial-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-primary no-margin" data-id="32" data-day="2" data-start="1.6667" data-duration="1.5"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--A2 Statistics (A2Stat 2)&lt;br&gt;-->
-                            <!--10:40 - 12:10&lt;br&gt;-->
-                            <!--C310 ACL Tutorial">-->
-                        <!--A2 Statistics (A2Stat 2)<br>-->
-                        <!--10:40 - 12:10<br>-->
-                        <!--C310 ACL Tutorial-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-success" data-id="33" data-day="2" data-start="4.1667" data-duration="1.5"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--A2 Pure Maths (A2PMath 1)&lt;br&gt;-->
-                            <!--13:10 - 14:40&lt;br&gt;-->
-                            <!--B125 ACL Lecture">-->
-                        <!--A2 Pure Maths (A2PMath 1)<br>-->
-                        <!--13:10 - 14:40<br>-->
-                        <!--B125 ACL Lecture-->
-                    <!--</li>-->
-                    <!--<li class="tt-event btn-success" data-id="34" data-day="2" data-start="5.8334" data-duration="1.5"-->
-                        <!--rel="tooltip" unselectable="on"-->
-                        <!--data-original-title="-->
-                            <!--AS Pure Maths (ASPMath)&lt;br&gt;-->
-                            <!--14:50 - 16:20&lt;br&gt;-->
-                            <!--B125 ACL Lecture">-->
-                        <!--AS Pure Maths (ASPMath)<br>-->
-                        <!--14:50 - 16:20<br>-->
-                        <!--B125 ACL Lecture-->
-                    <!--</li>-->
+
                 </ul>
 
             </div>
         </div>
 
-        <div class="row" id="testingg">
 
-        </div>
 
         <!--<div class="row">-->
         <!--<div class="input-group input-group-lg">-->
@@ -452,6 +318,7 @@
         <!--</div>-->
         <script>
             $( document ).ready(function() {
+                 $('#spinner').hide();
                 if((getAuthKey() != "" && getAuthKey() != null)) {
                     $("#lfmnamed").hide();  // checked
                     $("#authbutd").show();  // checked
@@ -466,8 +333,10 @@
             });
 
             function fetchResults(festival) {
+                    $('#spinner').show();
+                    $('#')
 
-                    var url = 'http://localhost:80/s/g/potter88?year=2015';
+                    var url = 'http://localhost:80/s/g/cyberstew?year=2015';
 
 
                     console.log("Sending");
@@ -476,6 +345,7 @@
                         dataType: 'JSON',
                         type: 'GET',
                         success: function (json) {
+                            $('#spinner').hide();
                             teardownTt();
                             var days = Object.keys(json.sched);
                             setupTableConfig(days);
