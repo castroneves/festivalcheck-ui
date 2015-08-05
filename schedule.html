@@ -171,9 +171,12 @@
             <!--<div class="form-group">-->
             <div class="input-group input-group-lg btn-group-lg" >
                 <!--<span class="input-group-addon " ><i class="icon-large icon-last-fm"></i></span>-->
-                <span class="input-group-addon" ><i class="fa fa-close fa-lg" style="color:#d51007"></i></span>
+                <span class="input-group-addon" >
+                    <i id="authindno" class="fa fa-close fa-lg" style="color:#d51007"></i>
+                    <i id="authindyes" class="fa fa-check fa-lg" style="color:green"></i>
+                </span>
 
-                <button type="button" class="btn btn-danger" style="width:95%;"><i class="fa fa-lastfm fa-lg"></i> Connect with Last.fm</button>
+                <button type="button" class="btn btn-danger" style="width:95%;" onclick="authWithLastFm()"><i class="fa fa-lastfm fa-lg"></i> Connect with Last.fm</button>
                 <span  id="spinner2" class="input-group-addon" ><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
             </div>
         </div>
@@ -264,19 +267,30 @@
             $( document ).ready(function() {
                 $('#spinner').hide();
                 $('#spinner2').hide();
+                selectCurrentMode();
                 toggleModeSelect();
+
+
                 if((getAuthKey() != "" && getAuthKey() != null)) {
-                    $("#lfmnamed").hide();  // checked
-                    $("#authbutd").show();  // checked
-                    $("#reccobox").prop('checked', true);
-                    $("#tick").show();
+                    $('#authindyes').show();
+                    $('#authindno').hide();
                 }
                 else {
-                    $("#lfmnamed").show();  // checked
-                    $("#authbutd").hide();  // checked
-                    $("#reccobox").prop('checked', false);
+                    $('#authindno').show();
+                    $('#authindyes').hide();
                 }
             });
+
+            function selectCurrentMode() {
+                var mode = getMode();
+                if( mode == 'rec') {
+                    $('#recco').prop("checked", true).trigger("click");
+                } else if ( mode == 'agg') {
+                    $('#both').prop("checked", true).trigger("click");
+                } else {
+                    $('#plays').prop("checked", true).trigger("click");
+                }
+            }
 
             function toggleModeSelect() {
                 if($('#plays').is(':checked')) {
@@ -299,8 +313,20 @@
             function fetchResults(festival) {
                     $('#spinner').show();
                     $('#spinner2').show();
-                    var username = $('#lastfmid').val();
-                    var url = 'http://localhost:80/s/g/' + username;
+                    var mode = getSelectedMode();
+                    if ( mode == 'listened') {
+                        var username = $('#lastfmid').val();
+                        var url = 'http://localhost:80/s/g/' + username;
+                    }
+
+                    else if ( mode == 'rec') {
+                        var token = getAuthKey();
+                        var url = 'http://localhost:80/s/r/g/' + token;
+                    }
+                    else if ( mode == 'agg') {
+                        var token = getAuthKey();
+                        var url = 'http://localhost:80/s/h/listened/g/' + token;
+                    }
 
                     if($("#yearcheck").is(':checked')) {
                         var year = $('#yearbox').val();
@@ -314,6 +340,7 @@
                         type: 'GET',
                         success: function (json) {
                             $('#spinner').hide();
+                            $('#spinner2').hide();
                             teardownTt();
                             var days = Object.keys(json.sched);
                             setupTableConfig(days);
@@ -322,6 +349,7 @@
                                 var acts = json.sched[days[i]];
                                 if ( typeof acts !== "undefined" ) {
                                     for ( act of acts ) {
+                                        var clazz = determineClassSched(act);
                                         $('#ttevents').append("<li class=\"tt-event btn-success\" data-id=\"" + act.name + "\" data-day=\"" + i + "\" data-start=\"" + act.ttStart + "\" data-duration=\"" + act.ttDuration + "\" rel=\"tooltip\" unselectable=\"on\">" + act.name + "<br>" + act.stage + "<br>" + act.startTime + " - " + act.endTime + "</li>");
                                     }
                                 }
@@ -329,6 +357,7 @@
                                 var clashes = json.clash[days[i]];
                                 if ( typeof clashes !== "undefined" ) {
                                     for ( act of clashes ) {
+                                        var clazz = determineClassClash(act);
                                         $('#ttevents').append("<li class=\"tt-event btn-warning\" data-id=\"" + act.name + "\" data-day=\"" + i + "\" data-start=\"" + act.ttStart + "\" data-duration=\"" + act.ttDuration + "\" rel=\"tooltip\" unselectable=\"on\">" + act.name + "<br>" + act.stage + "<br>" + act.startTime + " - " + act.endTime + "</li>");
                                     }
                                 }
@@ -431,18 +460,50 @@
                 }
             }
 
+            function getSelectedMode() {
+                if($('#plays').is(':checked')) {
+                    return 'listened';
+                }
+                else if($('#recco').is(':checked')) {
+                    return 'rec';
+
+                }
+                else if($('#both').is(':checked')) {
+                    return 'agg';
+                }
+            }
+
+
 
 
 
             function authWithLastFm() {
-                // add indicator as to whether auth key is present
                 // do something a bit more clever with key returned, cookie perhaps
-                window.location.replace("http://www.last.fm/api/auth?api_key=0ba3650498bb88d7328c97b461fc3636&cb=http://festivalchecker.azurewebsites.net");
+                var origin = window.location.origin;
+                var pathname = window.location.pathname;
+                var url = encodeURIComponent(origin + pathname + '?source=lastfm&mode=' + getSelectedMode());
+                window.location.replace('http://www.last.fm/api/auth?api_key=0ba3650498bb88d7328c97b461fc3636&cb=' + url);
             }
 
             function getAuthKey() {
-                return window.location.search.replace("?token=", "");
+                return getParameterByName('token');
             }
+
+            function getSource() {
+                return getParameterByName('source');
+            }
+
+            function getMode() {
+                return getParameterByName('mode');
+            }
+
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+
         </script>
         <!--<script src="js/jquery.js"></script>-->
         <!--<script src="js/bootstrap.min.js"></script>-->
