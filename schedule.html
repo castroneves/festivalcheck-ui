@@ -59,6 +59,12 @@
                 margin: auto;
             }
 
+            .width501 {
+                width:35%;
+                margin: auto;
+                margin-top:15px;
+            }
+
             .glyphicon-refresh-animate {
             -animation: spin .7s infinite linear;
             -webkit-animation: spin2 .7s infinite linear;
@@ -137,36 +143,53 @@
         <!--</div>-->
 
         <div class="row bottom15">
-            <div class="btn-group" data-toggle="buttons">
+            <div class="btn-group" data-toggle="buttons" id="modeselect"  onchange="toggleModeSelect()">
                 <label class="btn btn-danger active">
-                    <input type="radio" name="recmode" id="plays" autocomplete="off" checked> Played Artists
+                    <input type="radio" name="recmode" id="plays" autocomplete="off"  checked> Played Artists
                 </label>
                 <label class="btn btn-danger">
                     <input type="radio" name="recmode" id="recco" autocomplete="off"> Reccommended Artists
                 </label>
                 <label class="btn btn-danger">
-                    <input type="radio" name="recmode" id="both" autocomplete="off"> Both
+                    <input type="radio" name="recmode" id="both" autocomplete="off"> Aggregate
                 </label>
             </div>
         </div>
 
-        <div class="row top15 width50">
+        <div class="row width50 top15" id="listeneddiv">
             <!--<div class="form-group">-->
                 <div class="input-group input-group-lg" >
                     <!--<span class="input-group-addon " ><i class="icon-large icon-last-fm"></i></span>-->
                     <span class="input-group-addon" ><i class="fa fa-lastfm-square fa-lg" style="color:#d51007"></i></span>
 
-                    <input type="text" class="form-control input-lg" placeholder="Last FM ID">
+                    <input type="text" class="form-control input-lg" placeholder="Last FM ID" id="lastfmid">
                     <span  id="spinner" class="input-group-addon" ><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
                 </div>
-            <!--</div>-->
-
-            <!--<div class="form-group">-->
-
-            <!--</div>-->
         </div>
 
-        <div class="row top15 ">
+        <div class="row  top15 width501" id="authdiv">
+            <!--<div class="form-group">-->
+            <div class="input-group input-group-lg btn-group-lg" >
+                <!--<span class="input-group-addon " ><i class="icon-large icon-last-fm"></i></span>-->
+                <span class="input-group-addon" ><i class="fa fa-close fa-lg" style="color:#d51007"></i></span>
+
+                <button type="button" class="btn btn-danger" style="width:95%;"><i class="fa fa-lastfm fa-lg"></i> Connect with Last.fm</button>
+                <span  id="spinner2" class="input-group-addon" ><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
+            </div>
+        </div>
+
+        <div class="row top15 width501">
+            <!--<div class="form-group">-->
+            <div class="input-group input-group-lg" >
+                <!--<span class="input-group-addon " ><i class="icon-large icon-last-fm"></i></span>-->
+                <span class="input-group-addon" ><input id="yearcheck" type="checkbox" aria-label="..." onclick="toggleyear()"></span>
+
+                <input type="text" class="form-control input-lg" placeholder="Change Year (default 2015)" id="yearbox" style="width:95%" disabled="true">
+            </div>
+        </div>
+
+
+        <div class="row top15">
             <div class="container">
                 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
                     <button type="button " class="btn btn-danger" onclick="fetchResults(&#39;glastonbury&#39;)">Glastonbury</button>
@@ -236,89 +259,12 @@
 
 
 
-        <!--<div class="row">-->
-        <!--<div class="input-group input-group-lg">-->
-            <!--<input type="text" class="form-control input-lg" placeholder="Last FM ID">-->
-        <!--</div>-->
-        <!--<div class="input-group input-group-lg">-->
-            <!--<input type="text"  class="form-control input-lg" placeholder="Last FM ID">-->
 
-        <!--</div>-->
-        <!--</div>-->
-
-
-    <!--<div class="row top15">-->
-                <!--<div hidden class="col-md-1" id="cross">-->
-                    <!--<span class="glyphicon glyphicon-remove" style="color:red"></span>-->
-                <!--</div>-->
-                <!--<div hidden class="col-md-1" id="tick">-->
-                    <!--<span class="glyphicon glyphicon-ok" style="color:green"></span>-->
-                <!--</div>-->
-                <!--<div class="col-md-2" id="lfmnamed">-->
-                    <!--<div id="lastfmname" class="input-group input-group-lg">-->
-                            <!--<p><input type="text" placeholder="Last FM ID" class="form-control" id="lastfmentry">-->
-                            <!--</p>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div hidden="" class="col-md-2" id="authbutd">-->
-                    <!--<div id="authbut" class="input-group input-group-lg">-->
-                        <!--<p><button type="button" class="btn btn-default" onclick="authWithLastFm()">Authenticate</button>-->
-                        <!--</p>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-                <!--<div hidden="" class="col-md-1" id="spinner">-->
-                    <!--<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>-->
-                <!--</div>-->
-                <!--<div class="col-md-1" id="reccod">-->
-                    <!--<div id="recoo" class="input-group input-group-lg">-->
-                        <!--<div class="checkbox">-->
-                            <!--<label><input id="reccobox" type="checkbox" value="" onclick="togglerecco()">Recommended mode</label>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row top15">-->
-            <!--<div class="col-md-1">-->
-                <!--<div id="historic" class="input-group input-group-lg">-->
-                    <!--<div class="checkbox">-->
-                        <!--<label><input id="histbox" type="checkbox" value="" onclick="togglehist()">Historical</label>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div hidden="" id="year" class="col-md-2" style="display: none;">-->
-                <!--<div class="input-group input-group-lg">-->
-                    <!--<p><input type="text" placeholder="Year" class="form-control" id="yearentry">-->
-                    <!--</p>-->
-                <!--</div>-->
-            <!--</div>-->
-
-        <!--</div>-->
-        <!--<div class="row top15">-->
-            <!--<div class="container">-->
-                <!--<div class="btn-group btn-group-lg" role="group" aria-label="Large button group">-->
-                    <!--<button type="button" class="btn btn-default" onclick="fetchResults(&#39;glastonbury&#39;)">Glastonbury</button>-->
-                    <!--<button type="button" class="btn btn-default" onclick="fetchResults(&#39;iow&#39;)">Isle of Wight</button>-->
-                    <!--<button type="button" class="btn btn-default" onclick="fetchResults(&#39;latitude&#39;)">Latitude</button>-->
-                    <!--<button type="button" class="btn btn-default" onclick="fetchResults(&#39;download&#39;)">Download</button>-->
-                    <!--<button type="button" class="btn btn-default" onclick="fetchResults(&#39;80srewind&#39;)">80s Rewind</button>-->
-                    <!--<button type="button" class="btn btn-default" onclick="fetchResults(&#39;bestival&#39;)">Bestival</button>-->
-                    <!--<button type="button" class="btn btn-default" onclick="fetchResults(&#39;reading&#39;)">Reading</button>-->
-                    <!--<button type="button" class="btn btn-default" onclick="fetchResults(&#39;vvvchelmsford&#39;)">V Chelmsford</button>-->
-                    <!--<button type="button" class="btn btn-default" onclick="fetchResults(&#39;vvvstafford&#39;)">V Stafford</button>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-
-      <!--<!-- Example row of columns -->
-        <!--<div class="row">-->
-            <!--<table id="results" class="table table-striped">-->
-
-            <!--</table>-->
-        <!--</div>-->
         <script>
             $( document ).ready(function() {
-                 $('#spinner').hide();
+                $('#spinner').hide();
+                $('#spinner2').hide();
+                toggleModeSelect();
                 if((getAuthKey() != "" && getAuthKey() != null)) {
                     $("#lfmnamed").hide();  // checked
                     $("#authbutd").show();  // checked
@@ -332,12 +278,34 @@
                 }
             });
 
+            function toggleModeSelect() {
+                if($('#plays').is(':checked')) {
+                    console.log("regular");
+                    $('#listeneddiv').show();
+                    $('#authdiv').hide();
+                }
+                else if($('#recco').is(':checked')) {
+                    $('#listeneddiv').hide();
+                    $('#authdiv').show();
+
+                }
+                else if($('#both').is(':checked')) {
+                    $('#listeneddiv').hide();
+                    $('#authdiv').show();
+                }
+
+            }
+
             function fetchResults(festival) {
                     $('#spinner').show();
-                    $('#')
+                    $('#spinner2').show();
+                    var username = $('#lastfmid').val();
+                    var url = 'http://localhost:80/s/g/' + username;
 
-                    var url = 'http://localhost:80/s/g/cyberstew?year=2015';
-
+                    if($("#yearcheck").is(':checked')) {
+                        var year = $('#yearbox').val();
+                        url = url + "?year=" + year;
+                    }
 
                     console.log("Sending");
                     $.ajax({
@@ -377,6 +345,7 @@
                         error: function (xhr, ajaxOptions, thrownError) {
                             $('#results').html("ERROR - That festival may not have run that year, or the LastFM account does not exist");
                             $('#spinner').hide();
+                            $('#spinner2').hide();
                         }
                     });
             }
@@ -449,6 +418,21 @@
                     $("#year").hide();
                 }
             }
+
+            function toggleyear() {
+               if($("#yearcheck").is(':checked')) {
+                    console.log("showing");
+                    $("#yearbox").prop('disabled', false);
+                }
+                else {
+                    console.log("hiding");
+                    $("#yearbox").prop('disabled', true);
+                    $("#yearbox").val("");
+                }
+            }
+
+
+
 
             function authWithLastFm() {
                 // add indicator as to whether auth key is present
