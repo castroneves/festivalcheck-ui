@@ -311,20 +311,33 @@
             }
 
             function fetchResults(festival) {
+                    $('#message').hide();
                     $('#spinner').show();
                     $('#spinner2').show();
                     var mode = getSelectedMode();
                     if ( mode == 'listened') {
                         var username = $('#lastfmid').val();
+                        if( username == null || username == '') {
+                            displayError('Please enter a Last.FM username');
+                            return;
+                        }
                         var url = 'http://localhost:80/s/g/' + username;
                     }
 
                     else if ( mode == 'rec') {
                         var token = getAuthKey();
                         var url = 'http://localhost:80/s/r/g/' + token;
+                        if ( !isTokenValid(token) ) {
+                            displayError('Invalid Token - Please reconnect with Last.FM');
+                            return;
+                        }
                     }
                     else if ( mode == 'agg') {
                         var token = getAuthKey();
+                        if ( !isTokenValid(token) ) {
+                            displayError('Invalid Token - Please reconnect with Last.FM');
+                            return;
+                        }
                         var url = 'http://localhost:80/s/h/listened/g/' + token;
                     }
 
@@ -379,6 +392,14 @@
                     });
             }
 
+            function displayError(message) {
+                $('#timetable').hide();
+                $('#message').html("   ERROR- "  + message);
+                $('#message').show();
+                $('#spinner').hide();
+                $('#spinner2').hide();
+            }
+
 
             function determineClassSched(act, mode) {
                 var rank = act.reccorank;
@@ -389,8 +410,6 @@
                 else if (rank != -1) {
                     return "btn-primary no-margin";
                 }
-
-                return "some stuff";
             }
 
             function determineClassClash(act, mode) {
@@ -402,7 +421,6 @@
                 else if (rank != -1) {
                     return "btn-info";
                 }
-                return "some stuff";
             }
 
 
@@ -440,40 +458,6 @@
                 }
             }
 
-            function togglerecco() {
-                console.log("toggling");
-                if($("#reccobox").is(':checked')) {
-                    console.log("showing");
-                    $("#lfmnamed").hide();  // checked
-                    $("#authbutd").show();  // checked
-                    if((getAuthKey() != "" && getAuthKey() != null)) {
-                        $("#cross").hide();
-                        $("#tick").show();
-                    }
-                    else {
-                        $("#cross").show();
-                        $("#tick").hide();
-                    }
-                }
-                else {
-                    console.log("hiding");
-                    $("#lfmnamed").show();  // checked
-                    $("#authbutd").hide();  // checked
-                    $("#cross").hide();
-                    $("#tick").hide();
-                }
-            }
-
-            function togglehist() {
-                if($("#histbox").is(':checked')) {
-                    console.log("showing");
-                    $("#year").show();  // checked
-                }
-                else {
-                    console.log("hiding");
-                    $("#year").hide();
-                }
-            }
 
             function toggleyear() {
                if($("#yearcheck").is(':checked')) {
@@ -532,17 +516,13 @@
             }
 
         </script>
-        <!--<script src="js/jquery.js"></script>-->
-        <!--<script src="js/bootstrap.min.js"></script>-->
-        <!--<script src="js/jquery.prettyPhoto.js"></script>-->
-        <!--<script src="js/jquery.isotope.min.js"></script>-->
         <script src="js/main.js"></script>
 
 
       <hr>
 
       <footer>
-        <p>Powered by Last.FM and eFestivals.co.uk</p>
+        <p>Powered by Last.FM and Clashfinder</p>
       </footer>
     </div> <!-- /container -->
 
