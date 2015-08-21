@@ -129,7 +129,7 @@
     <div class="jumbotron">
       <div class="container">
         <h1>Personal Schedule Builder</h1>
-        <p>Coming Soon!</p>
+        <p>Build a festival schedule from your Last.Fm (Spotify mode coming soon!)</p>
       </div>
     </div>
 
@@ -156,6 +156,7 @@
             </div>
         </div>
 
+
         <div class="row width50 top15" id="listeneddiv">
             <!--<div class="form-group">-->
                 <div class="input-group input-group-lg" >
@@ -166,6 +167,8 @@
                     <span  id="spinner" class="input-group-addon" ><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
                 </div>
         </div>
+
+
 
         <div class="row  top15 width501" id="authdiv">
             <!--<div class="form-group">-->
@@ -178,6 +181,17 @@
 
                 <button type="button" class="btn btn-danger" onclick="authWithLastFm()" style="width:100%;"><i class="fa fa-lastfm fa-lg"></i> Connect with Last.fm</button>
                 <span  id="spinner2" class="input-group-addon" ><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
+            </div>
+        </div>
+
+        <div class="row width501" style="width:28%" id="algodiv">
+            <div class="btn-group" data-toggle="buttons" id="algoselect"  onchange="toggleModeSelect()">
+                <label class="btn btn-danger active">
+                    <input type="radio" name="aggalgo" id="aplays" autocomplete="off"  checked> Prefer Listened
+                </label>
+                <label class="btn btn-danger">
+                    <input type="radio" name="aggalgo" id="arecco" autocomplete="off"> Prefer Reccommended
+                </label>
             </div>
         </div>
 
@@ -195,12 +209,12 @@
         <div class="row top15">
             <div class="container">
                 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
-                    <button type="button " class="btn btn-danger" onclick="fetchResults(&#39;glastonbury&#39;)">Glastonbury</button>
+                    <button type="button " class="btn btn-danger" onclick="fetchResults(&#39;g&#39;)">Glastonbury</button>
+                    <button type="button"  disabled="true"  class="btn btn-danger" onclick="fetchResults(&#39;leeds&#39;)">Leeds</button>
                     <button type="button"  disabled="true"  class="btn btn-danger" onclick="fetchResults(&#39;iow&#39;)">Isle of Wight</button>
                     <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;latitude&#39;)">Latitude</button>
                     <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;download&#39;)">Download</button>
                     <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;80srewind&#39;)">80s Rewind</button>
-                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;bestival&#39;)">Bestival</button>
                     <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;reading&#39;)">Reading</button>
                     <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;vvvchelmsford&#39;)">V Chelmsford</button>
                     <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;vvvstafford&#39;)">V Stafford</button>
@@ -297,15 +311,17 @@
                     console.log("regular");
                     $('#listeneddiv').show();
                     $('#authdiv').hide();
+                    $('#algodiv').hide();
                 }
                 else if($('#recco').is(':checked')) {
                     $('#listeneddiv').hide();
                     $('#authdiv').show();
-
+                    $('#algodiv').hide();
                 }
                 else if($('#both').is(':checked')) {
                     $('#listeneddiv').hide();
                     $('#authdiv').show();
+                    $('#algodiv').show();
                 }
 
             }
@@ -321,12 +337,12 @@
                             displayError('Please enter a Last.FM username');
                             return;
                         }
-                        var url = 'http://localhost:80/s/g/' + username;
+                        var url = 'http://localhost:80/s/'+ festival +'/' + username;
                     }
 
                     else if ( mode == 'rec') {
                         var token = getAuthKey();
-                        var url = 'http://localhost:80/s/r/g/' + token;
+                        var url = 'http://glasto.cloudapp.net:80/s/r/' + festival + '/' + token;
                         if ( !isTokenValid(token) ) {
                             displayError('Invalid Token - Please reconnect with Last.FM');
                             return;
@@ -338,7 +354,8 @@
                             displayError('Invalid Token - Please reconnect with Last.FM');
                             return;
                         }
-                        var url = 'http://localhost:80/s/h/listened/g/' + token;
+                        var algo = getSelectedAlgo();
+                        var url = 'http://glasto.cloudapp.net:80/s/h/' + algo + '/'+ festival +'/' + token;
                     }
 
                     if($("#yearcheck").is(':checked')) {
@@ -398,6 +415,23 @@
                 $('#message').show();
                 $('#spinner').hide();
                 $('#spinner2').hide();
+            }
+
+            function isTokenValid(token) {
+                if( token == null || token == '' ) {
+                    return false;
+                }
+                return true;
+            }
+
+            function getSelectedAlgo() {
+                if($('#aplays').is(':checked')) {
+                    return 'listened';
+                }
+                else if($('#arecco').is(':checked')) {
+                    return 'recco';
+
+                }
             }
 
 
