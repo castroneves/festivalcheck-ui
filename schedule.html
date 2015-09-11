@@ -142,7 +142,18 @@
             <!--</div>-->
         <!--</div>-->
 
-        <div class="row bottom15">
+        <div class="row bottom15 " style="width:20%">
+            <div class="btn-group btn-group-lg" data-toggle="buttons" id="sourceselect"  onchange="toggleSource()">
+                <label class="btn btn-danger active">
+                    <input type="radio" name="source" id="lastfm" autocomplete="off"  checked> Last.Fm
+                </label>
+                <label class="btn btn-success">
+                    <input type="radio" name="source" id="spotify" autocomplete="off"> Spotify
+                </label>
+            </div>
+        </div>
+
+        <div class="row bottom15" id="lfmmodediv">
             <div class="btn-group" data-toggle="buttons" id="modeselect"  onchange="toggleModeSelect()">
                 <label class="btn btn-danger active">
                     <input type="radio" name="recmode" id="plays" autocomplete="off"  checked> Played Artists
@@ -181,6 +192,20 @@
 
                 <button type="button" class="btn btn-danger" onclick="authWithLastFm()" style="width:100%;"><i class="fa fa-lastfm fa-lg"></i> Connect with Last.fm</button>
                 <span  id="spinner2" class="input-group-addon" ><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
+            </div>
+        </div>
+
+        <div class="row  top15 width501" id="spotifyauthdiv">
+            <!--<div class="form-group">-->
+            <div class="input-group input-group-lg btn-group-lg"  style="width:95%;" >
+                <!--<span class="input-group-addon " ><i class="icon-large icon-last-fm"></i></span>-->
+                <span class="input-group-addon" >
+                    <i id="spotifyauthindno" class="fa fa-close fa-lg" style="color:#d51007"></i>
+                    <i id="spotifyauthindyes" class="fa fa-check fa-lg" style="color:green"></i>
+                </span>
+
+                <button type="button" class="btn btn-success" onclick="authWithSpotify()" style="width:100%;"><i class="fa fa-lastfm fa-lg"></i> Connect with Spotify</button>
+                <span  id="spinnerspot" class="input-group-addon" ><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
             </div>
         </div>
 
@@ -281,7 +306,9 @@
             $( document ).ready(function() {
                 $('#spinner').hide();
                 $('#spinner2').hide();
-                selectCurrentMode();
+                $('#spinnerspot').hide();
+                toggleSource();
+                // selectCurrentMode();
                 toggleModeSelect();
 
 
@@ -326,10 +353,33 @@
 
             }
 
+            function toggleSource() {
+                if($('#lastfm').is(':checked')) {
+                    //hide spotify stuff
+                    $('#spotifyauthdiv').hide();
+                    $('#lfmmodediv').show();
+                    toggleModeSelect();
+                    //change CSS Red
+                }
+                else if($('#spotify').is(':checked')) {
+                    //hide lastfm stuff
+                    $('#lfmmodediv').hide();
+                    $('#authdiv').hide();
+                    $('#algodiv').hide();
+                    $('#listeneddiv').hide();
+
+                    //show spotify button
+                    $('#spotifyauthdiv').show();
+                    //change css green
+                }
+            }
+
             function fetchResults(festival) {
                     $('#message').hide();
                     $('#spinner').show();
                     $('#spinner2').show();
+                    $('#spinnerspot').show();
+
                     var mode = getSelectedMode();
                     if ( mode == 'listened') {
                         var username = $('#lastfmid').val();
@@ -371,6 +421,7 @@
                         success: function (json) {
                             $('#spinner').hide();
                             $('#spinner2').hide();
+                            $('#spinnerspot').hide();
                             teardownTt();
                             var days = Object.keys(json.sched);
                             setupTableConfig(days);
@@ -405,6 +456,7 @@
                             $('#results').html("ERROR - That festival may not have run that year, or the LastFM account does not exist");
                             $('#spinner').hide();
                             $('#spinner2').hide();
+                            $('#spinnerspot').hide();
                         }
                     });
             }
@@ -528,6 +580,14 @@
                 var pathname = window.location.pathname;
                 var url = encodeURIComponent(origin + pathname + '?source=lastfm&mode=' + getSelectedMode());
                 window.location.replace('http://www.last.fm/api/auth?api_key=0ba3650498bb88d7328c97b461fc3636&cb=' + url);
+            }
+
+            function authWithSpotify() {
+                var origin = window.location.origin;
+                var pathname = window.location.pathname;
+                var url = encodeURIComponent('http://www.wellysplosher.com/schedule.html?source=spotify');
+                //var url = 'http://www.wellysplosher.com/schedule.html?source=spotify';
+                window.location.replace('https://accounts.spotify.com/authorize/?client_id=4f9ea44544be4b789e54bfd9c23ebdc9&response_type=code&scope=user-read-private%20user-read-email%20user-library-read%20playlist-read-private&redirect_uri=' + url);
             }
 
             function getAuthKey() {
