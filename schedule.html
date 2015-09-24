@@ -308,8 +308,9 @@
                 $('#spinner2').hide();
                 $('#spinnerspot').hide();
                 toggleSource();
-                // selectCurrentMode();
+                selectCurrentMode();
                 toggleModeSelect();
+
 
 
                 if((getAuthKey() != "" && getAuthKey() != null)) {
@@ -323,34 +324,44 @@
             });
 
             function selectCurrentMode() {
-                var mode = getMode();
-                if( mode == 'rec') {
-                    $('#recco').prop("checked", true).trigger("click");
-                } else if ( mode == 'agg') {
-                    $('#both').prop("checked", true).trigger("click");
+                var source = getSource();
+                if( source == 'spotify' ) {
+                    $('#spotify').prop("checked", true).trigger("click");
                 } else {
-                    $('#plays').prop("checked", true).trigger("click");
+                    $('#lastfm').prop("checked", true).trigger("click");
+                }
+                if( source != 'spotify' ) {
+                    var mode = getMode();
+                    if( mode == 'rec') {
+                        $('#recco').prop("checked", true).trigger("click");
+                    } else if ( mode == 'agg') {
+                        $('#both').prop("checked", true).trigger("click");
+                    } else {
+                        $('#plays').prop("checked", true).trigger("click");
+                    }
                 }
             }
 
             function toggleModeSelect() {
-                if($('#plays').is(':checked')) {
-                    console.log("regular");
-                    $('#listeneddiv').show();
-                    $('#authdiv').hide();
-                    $('#algodiv').hide();
+                var source = getSource();
+                if( source != 'spotify' ) {
+                    if($('#plays').is(':checked')) {
+                        console.log("regular");
+                        $('#listeneddiv').show();
+                        $('#authdiv').hide();
+                        $('#algodiv').hide();
+                    }
+                    else if($('#recco').is(':checked')) {
+                        $('#listeneddiv').hide();
+                        $('#authdiv').show();
+                        $('#algodiv').hide();
+                    }
+                    else if($('#both').is(':checked')) {
+                        $('#listeneddiv').hide();
+                        $('#authdiv').show();
+                        $('#algodiv').show();
+                    }
                 }
-                else if($('#recco').is(':checked')) {
-                    $('#listeneddiv').hide();
-                    $('#authdiv').show();
-                    $('#algodiv').hide();
-                }
-                else if($('#both').is(':checked')) {
-                    $('#listeneddiv').hide();
-                    $('#authdiv').show();
-                    $('#algodiv').show();
-                }
-
             }
 
             function toggleSource() {
@@ -370,6 +381,14 @@
 
                     //show spotify button
                     $('#spotifyauthdiv').show();
+
+                    if(isTokenValid(getCode())) {
+                        $('#spotifyauthindyes').show();
+                        $('#spotifyauthindno').hide();
+                    } else {
+                        $('#spotifyauthindyes').hide();
+                        $('#spotifyauthindno').show();
+                    }
                     //change css green
                 }
             }
@@ -379,33 +398,44 @@
                     $('#spinner').show();
                     $('#spinner2').show();
                     $('#spinnerspot').show();
+                    var host = 'http://glasto.cloudapp.net:80';
+                    var source = getSelectedSource();
+                    if( source == 'lastfm' ) {
+                        var mode = getSelectedMode();
+                        if ( mode == 'listened') {
+                            var username = $('#lastfmid').val();
+                            if( username == null || username == '') {
+                                displayError('Please enter a Last.FM username');
+                                return;
+                            }
+                            var url = host + '/s/'+ festival +'/' + username;
+                        }
 
-                    var mode = getSelectedMode();
-                    if ( mode == 'listened') {
-                        var username = $('#lastfmid').val();
-                        if( username == null || username == '') {
-                            displayError('Please enter a Last.FM username');
-                            return;
+                        else if ( mode == 'rec') {
+                            var token = getAuthKey();
+                            var url = host + '/s/r/' + festival + '/' + token;
+                            if ( !isTokenValid(token) ) {
+                                displayError('Invalid Token - Please reconnect with Last.FM');
+                                return;
+                            }
                         }
-                        var url = 'http://localhost:80/s/'+ festival +'/' + username;
+                        else if ( mode == 'agg') {
+                            var token = getAuthKey();
+                            if ( !isTokenValid(token) ) {
+                                displayError('Invalid Token - Please reconnect with Last.FM');
+                                return;
+                            }
+                            var algo = getSelectedAlgo();
+                            var url = host + '/s/h/' + algo + '/'+ festival +'/' + token;
+                        }
                     }
-
-                    else if ( mode == 'rec') {
-                        var token = getAuthKey();
-                        var url = 'http://glasto.cloudapp.net:80/s/r/' + festival + '/' + token;
-                        if ( !isTokenValid(token) ) {
-                            displayError('Invalid Token - Please reconnect with Last.FM');
+                    else if(source == 'spotify') {
+                        var code = getCode();
+                        if ( !isTokenValid(code) ) {
+                            displayError('Invalid Token - Please reconnect with Spotify');
                             return;
                         }
-                    }
-                    else if ( mode == 'agg') {
-                        var token = getAuthKey();
-                        if ( !isTokenValid(token) ) {
-                            displayError('Invalid Token - Please reconnect with Last.FM');
-                            return;
-                        }
-                        var algo = getSelectedAlgo();
-                        var url = 'http://glasto.cloudapp.net:80/s/h/' + algo + '/'+ festival +'/' + token;
+                        var url = host + '/s/spotify/' + festival + '/' + code;
                     }
 
                     if($("#yearcheck").is(':checked')) {
@@ -457,6 +487,7 @@
                             $('#spinner').hide();
                             $('#spinner2').hide();
                             $('#spinnerspot').hide();
+                            displayError('500 Returned From Server');
                         }
                     });
             }
@@ -467,6 +498,7 @@
                 $('#message').show();
                 $('#spinner').hide();
                 $('#spinner2').hide();
+                $('#spinnerspot').hide();
             }
 
             function isTokenValid(token) {
@@ -570,9 +602,14 @@
                 }
             }
 
-
-
-
+            function getSelectedSource() {
+                if($('#spotify').is(':checked')) {
+                    return 'spotify';
+                }
+                else if($('#lastfm').is(':checked')) {
+                    return 'lastfm';
+                }
+            }
 
             function authWithLastFm() {
                 // do something a bit more clever with key returned, cookie perhaps
@@ -600,6 +637,10 @@
 
             function getMode() {
                 return getParameterByName('mode');
+            }
+
+            function getCode() {
+                return getParameterByName('code');
             }
 
             function getParameterByName(name) {
