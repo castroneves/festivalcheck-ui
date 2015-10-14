@@ -101,7 +101,7 @@
     <!--<script type="text/javascript" src="js/jquery-latest.js"></script><style type="text/css"></style>-->
     <script type="text/javascript" src="js/jquery.ba-resize.js"></script>
     <script type="text/javascript" src="js/bootstrap-tooltip.js"></script>
-    <script type="text/javascript" src="js/bootstrap-collapse.js"></script>
+    <!--<script type="text/javascript" src="js/bootstrap-collapse.js"></script>-->
     <!--<script src="js/html5shiv.js"></script>-->
     <!--<script src="js/respond.min.js"></script>-->
     </head>
@@ -227,7 +227,7 @@
 
         <div class="row top15">
             <div class="container">
-                <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+                <div class="btn-group btn-group-lg" role="group" aria-label="Large button group" id="festivals">
                     <button type="button " class="btn btn-danger" onclick="fetchResults(&#39;glastonbury&#39;)">Glastonbury</button>
                     <button type="button"  class="btn btn-danger" onclick="fetchResults(&#39;leeds&#39;)">Leeds</button>
                     <button type="button"  class="btn btn-danger" onclick="fetchResults(&#39;iow&#39;)">Isle of Wight</button>
@@ -381,6 +381,7 @@
                     $('#lfmmodediv').show();
                     toggleModeSelect();
                     //change CSS Red
+                    updateButtonsRed();
                 }
                 else if($('#spotify').is(':checked')) {
                     //hide lastfm stuff
@@ -400,7 +401,18 @@
                         $('#spotifyauthindno').show();
                     }
                     //change css green
+                    updateButtonsGreen();
                 }
+            }
+
+            function updateButtonsGreen() {
+                $('#festivals').children().removeClass();
+                $('#festivals').children().addClass('btn btn-success');
+            }
+
+            function updateButtonsRed() {
+                $('#festivals').children().removeClass();
+                $('#festivals').children().addClass('btn btn-danger');
             }
 
 
@@ -409,6 +421,7 @@
                     $('#spinner2').show();
                     $('#spinnerspot').show();
                     var host = 'http://glasto.cloudapp.net:80';
+                    //var host = 'http://localhost:80';
                     var source = getSelectedSource();
                     if( source == 'lastfm' ) {
                         var mode = getSelectedMode();
@@ -428,15 +441,6 @@
                                 displayError('Invalid Token - Please reconnect with Last.FM');
                                 return;
                             }
-                        }
-                        else if ( mode == 'agg') {
-                            var token = getAuthKey();
-                            if ( !isTokenValid(token) ) {
-                                displayError('Invalid Token - Please reconnect with Last.FM');
-                                return;
-                            }
-                            var algo = getSelectedAlgo();
-                            var url = host + '/s/h/' + algo + '/'+ festival +'/' + token;
                         }
                     }
                     else if(source == 'spotify') {
