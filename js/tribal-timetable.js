@@ -7,7 +7,9 @@ $(function () {
         $(this).resizeTimetable();
     });
 
-
+    $.fn.calcuateScaleFactor = function () {
+        return 1300 / $(this).width();
+    };
 
 
     $.fn.initialiseTT = function () {
@@ -134,8 +136,15 @@ $(function () {
         jQuery('.tt-events', this).css('left', daysWidth);
         jQuery('.tt-events', this).css('top', timesHeight);
         /* check why different between height and width - times/days */
-        var ttWidth = $(this).width() * 2;
-        var width = ($(this).width() * 2) - jQuery('.tt-days', this).width() - ttDaysExtras;
+
+
+
+        var scaleFactor = $(this).calcuateScaleFactor();
+        console.log(scaleFactor);
+        console.log($(this).width());
+
+        var ttWidth = $(this).width() * scaleFactor;
+        var width = ($(this).width() * scaleFactor) - jQuery('.tt-days', this).width() - ttDaysExtras;
 //        var width = 1500 - jQuery('.tt-days', this).width() - ttDaysExtras;
         var height = $(this).height();
         var hours = $(this).data('hours');
@@ -197,4 +206,6 @@ $(function () {
         return false;
     };
 });
+
+
 

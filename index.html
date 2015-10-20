@@ -32,7 +32,6 @@
             .bottom15 {
             margin:auto;
             margin-bottom:15px;
-            width:35%;
             }
 
             .three-row { height: 55px; }
@@ -57,12 +56,14 @@
             .width50 {
             width:45%;
             margin: auto;
+            min-width: 300px;
             }
 
             .width501 {
             width:35%;
             margin: auto;
             margin-top:15px;
+            min-width: 300px;
             }
 
             .glyphicon-refresh-animate {
@@ -137,7 +138,7 @@
     <div class="container">
 
 
-        <div class="row bottom15 " style="width:20%">
+        <div class="row bottom15 text-center" >
             <div class="btn-group btn-group-lg" data-toggle="buttons" id="sourceselect"  onchange="toggleSource()">
                 <label class="btn btn-danger active">
                     <input type="radio" name="source" id="lastfm" autocomplete="off"  checked> Last.Fm
@@ -148,7 +149,7 @@
             </div>
         </div>
 
-        <div class="row bottom15" id="lfmmodediv">
+        <div class="row bottom15 text-center" id="lfmmodediv">
             <div class="btn-group" data-toggle="buttons" id="modeselect"  onchange="toggleModeSelect()">
                 <label class="btn btn-danger active">
                     <input type="radio" name="recmode" id="plays" autocomplete="off"  checked> Played Artists
@@ -162,7 +163,7 @@
             </div>
         </div>
 
-        <div class="row width50 top15" id="listeneddiv">
+        <div class="row width50 top15 text-center" id="listeneddiv">
             <!--<div class="form-group">-->
             <div class="input-group input-group-lg" >
                 <!--<span class="input-group-addon " ><i class="icon-large icon-last-fm"></i></span>-->
@@ -175,7 +176,7 @@
 
 
 
-        <div class="row  top15 width501" id="authdiv">
+        <div class="row  top15 width501 text-center" id="authdiv">
             <!--<div class="form-group">-->
             <div class="input-group input-group-lg btn-group-lg"  style="width:95%;" >
                 <!--<span class="input-group-addon " ><i class="icon-large icon-last-fm"></i></span>-->
@@ -189,7 +190,7 @@
             </div>
         </div>
 
-        <div class="row  top15 width501" id="spotifyauthdiv">
+        <div class="row  top15 width501 text-center" id="spotifyauthdiv">
             <!--<div class="form-group">-->
             <div class="input-group input-group-lg btn-group-lg"  style="width:95%;" >
                 <!--<span class="input-group-addon " ><i class="icon-large icon-last-fm"></i></span>-->
@@ -214,7 +215,7 @@
             <!--</div>-->
         <!--</div>-->
 
-        <div class="row top15 width501">
+        <div class="row top15 width501 text-center">
             <!--<div class="form-group">-->
             <div class="input-group input-group-lg" >
                 <!--<span class="input-group-addon " ><i class="icon-large icon-last-fm"></i></span>-->
