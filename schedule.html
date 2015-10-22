@@ -345,7 +345,7 @@
             }
 
             function toggleModeSelect() {
-                var source = getSource();
+                var source = getSelectedSource();
                 if( source != 'spotify' ) {
                     if($('#plays').is(':checked')) {
                         console.log("regular");
@@ -371,6 +371,7 @@
                     //hide spotify stuff
                     $('#spotifyauthdiv').hide();
                     $('#lfmmodediv').show();
+                    $('#listeneddiv').show();
                     toggleModeSelect();
                     //change CSS Red
                     updateButtonsRed();
@@ -412,7 +413,8 @@
                     $('#spinner').show();
                     $('#spinner2').show();
                     $('#spinnerspot').show();
-                    var host = 'http://glasto.cloudapp.net:80';
+                    //var host = 'http://glasto.cloudapp.net:80';
+                    var host = 'http://localhost:80';
                     var source = getSelectedSource();
                     if( source == 'lastfm' ) {
                         var mode = getSelectedMode();
@@ -638,7 +640,7 @@
                 var pathname = window.location.pathname;
                 var url = encodeURIComponent('http://www.wellysplosher.com/schedule.html?source=spotify');
                 //var url = 'http://www.wellysplosher.com/schedule.html?source=spotify';
-                window.location.replace('https://accounts.spotify.com/authorize/?client_id=4f9ea44544be4b789e54bfd9c23ebdc9&response_type=code&scope=user-read-private%20user-read-email%20user-library-read%20playlist-read-private&redirect_uri=' + url);
+                window.location.replace('https://accounts.spotify.com/authorize/?client_id=4f9ea44544be4b789e54bfd9c23ebdc9&response_type=code&scope=user-read-private%20user-read-email%20user-library-read%20playlist-read-private%20playlist-read-collaborative&redirect_uri=' + url);
             }
 
             function getAuthKey() {
