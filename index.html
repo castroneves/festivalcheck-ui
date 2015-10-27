@@ -422,7 +422,7 @@
                     $('#spinner2').show();
                     $('#spinnerspot').show();
                     var host = 'http://glasto.cloudapp.net:80';
-                    //var host = 'http://localhost:80';
+//                    var host = 'http://localhost:8082';
                     var source = getSelectedSource();
                     if( source == 'lastfm' ) {
                         var mode = getSelectedMode();
@@ -450,7 +450,8 @@
                             displayError('Invalid Token - Please reconnect with Spotify');
                             return;
                         }
-                        var url = host + '/spotify/' + festival + '/' + code;
+                        var redirect = encodeURIComponent('http://www.wellysplosher.com/index.html?source=spotify');
+                        var url = host + '/spotify/' + festival + '/' + code + "?redirectUrl=" + redirect;
                     }
 
                     if($("#yearcheck").is(':checked')) {
