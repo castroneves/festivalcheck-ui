@@ -131,7 +131,7 @@
     <div class="jumbotron">
       <div class="container">
         <h1>Personal Schedule Builder</h1>
-        <p>Build a festival schedule from your Last.Fm (Spotify mode coming soon!)</p>
+        <p>Build a festival schedule from your Last.Fm or Spotify account</p>
       </div>
     </div>
 
@@ -160,10 +160,10 @@
                 <label class="btn btn-danger active">
                     <input type="radio" name="recmode" id="plays" autocomplete="off"  checked> Played Artists
                 </label>
-                <label class="btn btn-danger">
-                    <input type="radio" name="recmode" id="recco" autocomplete="off"> Reccommended Artists
+                <label class="btn btn-danger disabled">
+                    <input type="radio"  name="recmode" id="recco" autocomplete="off"> Reccommended Artists
                 </label>
-                <label class="btn btn-danger">
+                <label class="btn btn-danger disabled">
                     <input type="radio" name="recmode" id="both" autocomplete="off"> Aggregate
                 </label>
             </div>
@@ -236,9 +236,9 @@
         <div class="row top15">
             <div class="container">
                 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group" id="festivals">
-                    <button type="button " class="btn btn-default" onclick="fetchResults(&#39;g&#39;)">Glastonbury</button>
-                    <button type="button"  disabled="true"  class="btn btn-danger" onclick="fetchResults(&#39;leeds&#39;)">Leeds</button>
-                    <button type="button"  disabled="true"  class="btn btn-danger" onclick="fetchResults(&#39;iow&#39;)">Isle of Wight</button>
+                    <button type="button " class="btn btn-danger" onclick="fetchResults(&#39;g&#39;)">Glastonbury</button>
+                    <button type="button"  class="btn btn-danger" onclick="fetchResults(&#39;leeds&#39;)">Leeds</button>
+                    <button type="button"  class="btn btn-danger" onclick="fetchResults(&#39;iow&#39;)">Isle of Wight</button>
                     <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;latitude&#39;)">Latitude</button>
                     <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;download&#39;)">Download</button>
                     <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;80srewind&#39;)">80s Rewind</button>
@@ -413,8 +413,8 @@
                     $('#spinner').show();
                     $('#spinner2').show();
                     $('#spinnerspot').show();
-                    var host = 'http://glasto.cloudapp.net:80';
-                    //var host = 'http://localhost:80';
+                    //var host = 'http://glasto.cloudapp.net:80';
+                    var host = 'http://localhost:80';
                     var source = getSelectedSource();
                     if( source == 'lastfm' ) {
                         var mode = getSelectedMode();
@@ -451,7 +451,8 @@
                             displayError('Invalid Token - Please reconnect with Spotify');
                             return;
                         }
-                        var url = host + '/s/spotify/' + festival + '/' + code;
+                        var redirect = encodeURIComponent('http://www.wellysplosher.com/schedule.html?source=spotify');
+                        var url = host + '/s/spotify/' + festival + '/' + code + "/" + redirect;
                     }
 
                     if($("#yearcheck").is(':checked')) {
