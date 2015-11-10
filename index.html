@@ -252,6 +252,7 @@
                 toggleModeSelect();
 
 
+                enactDeepLinking();
 
                 if((getAuthKey() != "" && getAuthKey() != null)) {
                     $('#authindyes').show();
@@ -262,6 +263,22 @@
                     $('#authindyes').hide();
                 }
             });
+
+            function enactDeepLinking() {
+                 var user = getParameterByName('user');
+                 if( user != "" ) {
+                    $('#lastfmid').val(user);
+                 }
+                 var year = getParameterByName('year');
+                 if( year != "" ) {
+                    $('#yearcheck').trigger("click");
+                    $('#yearbox').val(year);
+                 }
+                 var festival = getParameterByName('festival');
+                 if(festival != "") {
+                    fetchResults(festival);
+                 }
+            }
 
             function selectCurrentMode() {
                 var source = getSource();
@@ -352,7 +369,7 @@
                     $('#spinner2').show();
                     $('#spinnerspot').show();
                     var host = 'http://glasto.cloudapp.net:80';
-//                    var host = 'http://localhost:8082';
+                    //var host = 'http://localhost:80';
                     var source = getSelectedSource();
                     if( source == 'lastfm' ) {
                         var mode = getSelectedMode();
