@@ -8,7 +8,11 @@ $(function () {
     });
 
     $.fn.calcuateScaleFactor = function () {
-        return 1300 / $(this).width();
+        var sf = 1200 / $(this).width();
+        if ( $(this).width() > 1100) {
+            return 1;
+        }
+        return sf;
     };
 
 
@@ -140,6 +144,7 @@ $(function () {
 
 
         var scaleFactor = $(this).calcuateScaleFactor();
+        //var scaleFactor = 1;
         console.log(scaleFactor);
         console.log($(this).width());
 
