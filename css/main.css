@@ -331,14 +331,12 @@ body > section {
 	margin-right: 25px;
 }
 .feature-wrap i {
-	font-size: 48px;
 	height: 110px;
 	width: 110px;
 	margin: 3px;
 	border-radius: 100%;
 	line-height: 110px;
 	text-align: center;
-	background: #ffffff;
 	color: #3498db;
 }
 #recent-works .col-xs-12.col-sm-4.col-md-4 {

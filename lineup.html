@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"
+      lang="" hola_ext_inject="disabled"><!--<![endif]-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        <!--body {-->
+        <!--padding-top: 50px;-->
+        <!--padding-bottom: 20px;-->
+        <!--}-->
+
+        span.glyphicon-ok {
+        font-size: 3.5em;
+        }
+
+        span.glyphicon-remove {
+        font-size: 3.5em;
+        }
+
+        .top5 { margin-top:5px; }
+        .top7 { margin-top:7px; }
+        .top10 { margin-top:10px; }
+        .top15 { margin-top:15px; }
+        .top17 { margin-top:17px; }
+        .top30 { margin-top:30px; }
+        .bottom15 {
+        margin:auto;
+        margin-bottom:15px;
+        }
+
+        .three-row { height: 55px; }
+        .no-margin {
+        margin-top:0px;
+        padding:3px;
+        }
+
+        .btn-primary {
+        margin-top:0px;
+        }
+
+        .pad {
+        margin-left:280px;
+        margin-right:280px;
+        }
+
+        .hidden {
+        visibility: hidden;
+        }
+
+        .width50 {
+        width:45%;
+        margin: auto;
+        min-width: 300px;
+        }
+
+        .width501 {
+        width:35%;
+        margin: auto;
+        margin-top:15px;
+        min-width: 300px;
+        }
+
+        .glyphicon-refresh-animate {
+        -animation: spin .7s infinite linear;
+        -webkit-animation: spin2 .7s infinite linear;
+        }
+
+        @-webkit-keyframes spin2 {
+        from { -webkit-transform: rotate(0deg);}
+        to { -webkit-transform: rotate(360deg);}
+        }
+
+        @keyframes spin {
+        from { transform: scale(1) rotate(0deg);}
+        to { transform: scale(1) rotate(360deg);}
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="./index_files/jquery.min.js"></script>
+    <style type="text/css"></style>
+    <script src="./index_files/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
+    <link href="css/tribal-timetable.css" rel="stylesheet">
+    <script type="text/javascript" src="js/tribal.js"></script>
+    <script type="text/javascript" src="js/tribal-shared.js"></script>
+    <script type="text/javascript" src="js/tribal-timetable.js"></script>
+    <script type="text/javascript" async="" src="js/ga.js"></script>
+    <script type="text/javascript" src="js/jquery.ba-resize.js"></script>
+    <script type="text/javascript" src="js/bootstrap-tooltip.js"></script>
+</head>
+<body class="homepage">
+
+<header id="header">
+    <nav class="navbar navbar-inverse" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
+                        class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span></button>
+                <a class="navbar-brand" href="index.html"><i class="fa fa-beer"></i> Welly Splosher</a></a> </div>
+            <div class="collapse navbar-collapse navbar-right">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="lineup.html">Lineup and Rumours</a></li>
+                    <li><a href="schedule.html">Personalised Schedule</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--/.container-->
+    </nav>
+    <!--/nav-->
+
+</header>
+<div class="color-border"></div>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Festival Lineup and Rumour Checker</h1>
+
+        <p>Quickly find what artists you like are linked with festivals</p>
+    </div>
+</div>
+
+<div class="container">
+
+
+<div class="row bottom15 text-center">
+    <div class="btn-group btn-group-lg" data-toggle="buttons" id="sourceselect" onchange="toggleSource()">
+        <label class="btn btn-danger active">
+            <input type="radio" name="source" id="lastfm" autocomplete="off" checked> Last.Fm
+        </label>
+        <label class="btn btn-success">
+            <input type="radio" name="source" id="spotify" autocomplete="off"> Spotify
+        </label>
+    </div>
+</div>
+
+<div class="row bottom15 text-center" id="lfmmodediv">
+    <div class="btn-group" data-toggle="buttons" id="modeselect" onchange="toggleModeSelect()">
+        <label class="btn btn-danger active">
+            <input type="radio" name="recmode" id="plays" autocomplete="off" checked> Played Artists
+        </label>
+        <label class="btn btn-danger disabled">
+            <input type="radio" name="recmode" id="recco" autocomplete="off"> Reccommended Artists
+        </label>
+    </div>
+</div>
+
+<div class="row width50 top15 text-center" id="listeneddiv">
+    <div class="input-group input-group-lg">
+        <span class="input-group-addon"><i class="fa fa-lastfm-square fa-lg" style="color:#d51007"></i></span>
+
+        <input type="text" class="form-control input-lg" placeholder="Last FM ID" id="lastfmid">
+        <span id="spinner" class="input-group-addon"><span
+                class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
+    </div>
+</div>
+
+
+<div class="row  top15 width501 text-center" id="authdiv">
+    <div class="input-group input-group-lg btn-group-lg" style="width:95%;">
+                <span class="input-group-addon">
+                    <i id="authindno" class="fa fa-close fa-lg" style="color:#d51007"></i>
+                    <i id="authindyes" class="fa fa-check fa-lg" style="color:green"></i>
+                </span>
+
+        <button type="button" class="btn btn-danger" onclick="authWithLastFm()" style="width:100%;"><i
+                class="fa fa-lastfm fa-lg"></i> Connect with Last.fm
+        </button>
+        <span id="spinner2" class="input-group-addon"><span
+                class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
+    </div>
+</div>
+
+<div class="row  top15 width501 text-center" id="spotifyauthdiv">
+    <div class="input-group input-group-lg btn-group-lg" style="width:95%;">
+                <span class="input-group-addon">
+                    <i id="spotifyauthindno" class="fa fa-close fa-lg" style="color:#d51007"></i>
+                    <i id="spotifyauthindyes" class="fa fa-check fa-lg" style="color:green"></i>
+                </span>
+
+        <button type="button" class="btn btn-success" onclick="authWithSpotify()" style="width:100%;"><i
+                class="fa fa-spotify fa-lg"></i> Connect with Spotify
+        </button>
+        <span id="spinnerspot" class="input-group-addon"><span
+                class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
+    </div>
+</div>
+
+
+<div class="row top15 width501 text-center">
+    <!--<div class="form-group">-->
+    <div class="input-group input-group-lg">
+        <!--<span class="input-group-addon " ><i class="icon-large icon-last-fm"></i></span>-->
+        <span class="input-group-addon"><input id="yearcheck" type="checkbox" aria-label="..."
+                                               onclick="toggleyear()"></span>
+
+        <input type="text" class="form-control input-lg" placeholder="Change Year (default 2015)" id="yearbox"
+               style="width:95%" disabled="true">
+    </div>
+</div>
+
+
+<div class="row top15">
+    <div class="container">
+        <div class="btn-group btn-group-lg" role="group" aria-label="Large button group" id="festivals">
+            <button type="button " class="btn btn-danger" onclick="fetchResults(&#39;glastonbury&#39;)">Glastonbury
+            </button>
+            <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;leeds&#39;)">Leeds</button>
+            <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;iow&#39;)">Isle of Wight</button>
+            <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;latitude&#39;)">Latitude</button>
+            <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;download&#39;)">Download</button>
+            <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;80srewind&#39;)">80s Rewind</button>
+            <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;reading&#39;)">Reading</button>
+            <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;vvvchelmsford&#39;)">V Chelmsford
+            </button>
+            <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;vvvstafford&#39;)">V Stafford
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <table id="results" class="table table-striped">
+
+    </table>
+</div>
+<script>
+            $( document ).ready(function() {
+                $('#spinner').hide();
+                $('#spinner2').hide();
+                $('#spinnerspot').hide();
+                toggleSource();
+                selectCurrentMode();
+                toggleModeSelect();
+
+
+                enactDeepLinking();
+
+                if((getAuthKey() != "" && getAuthKey() != null)) {
+                    $('#authindyes').show();
+                    $('#authindno').hide();
+                }
+                else {
+                    $('#authindno').show();
+                    $('#authindyes').hide();
+                }
+            });
+
+            function enactDeepLinking() {
+                 var user = getParameterByName('user');
+                 if( user != "" ) {
+                    $('#lastfmid').val(user);
+                 }
+                 var year = getParameterByName('year');
+                 if( year != "" ) {
+                    $('#yearcheck').trigger("click");
+                    $('#yearbox').val(year);
+                 }
+                 var festival = getParameterByName('festival');
+                 if(festival != "") {
+                    fetchResults(festival);
+                 }
+            }
+
+            function selectCurrentMode() {
+                var source = getSource();
+                if( source == 'spotify' ) {
+                    $('#spotify').prop("checked", true).trigger("click");
+                } else {
+                    $('#lastfm').prop("checked", true).trigger("click");
+                }
+                if( source != 'spotify' ) {
+                    var mode = getMode();
+                    if( mode == 'rec') {
+                        $('#recco').prop("checked", true).trigger("click");
+                    } else if ( mode == 'agg') {
+                        $('#both').prop("checked", true).trigger("click");
+                    } else {
+                        $('#plays').prop("checked", true).trigger("click");
+                    }
+                }
+            }
+
+            function toggleModeSelect() {
+                var source = getSource();
+                if( source != 'spotify' ) {
+                    if($('#plays').is(':checked')) {
+                        console.log("regular");
+                        $('#listeneddiv').show();
+                        $('#authdiv').hide();
+                        $('#algodiv').hide();
+                    }
+                    else if($('#recco').is(':checked')) {
+                        $('#listeneddiv').hide();
+                        $('#authdiv').show();
+                        $('#algodiv').hide();
+                    }
+                    else if($('#both').is(':checked')) {
+                        $('#listeneddiv').hide();
+                        $('#authdiv').show();
+                        $('#algodiv').show();
+                    }
+                }
+            }
+
+            function toggleSource() {
+                if($('#lastfm').is(':checked')) {
+                    //hide spotify stuff
+                    $('#spotifyauthdiv').hide();
+                    $('#lfmmodediv').show();
+                    $('#listeneddiv').show();
+                    toggleModeSelect();
+                    //change CSS Red
+                    updateButtonsRed();
+                }
+                else if($('#spotify').is(':checked')) {
+                    //hide lastfm stuff
+                    $('#lfmmodediv').hide();
+                    $('#authdiv').hide();
+                    $('#algodiv').hide();
+                    $('#listeneddiv').hide();
+
+                    //show spotify button
+                    $('#spotifyauthdiv').show();
+
+                    if(isTokenValid(getCode())) {
+                        $('#spotifyauthindyes').show();
+                        $('#spotifyauthindno').hide();
+                    } else {
+                        $('#spotifyauthindyes').hide();
+                        $('#spotifyauthindno').show();
+                    }
+                    //change css green
+                    updateButtonsGreen();
+                }
+            }
+
+            function updateButtonsGreen() {
+                $('#festivals').children().removeClass();
+                $('#festivals').children().addClass('btn btn-success');
+            }
+
+            function updateButtonsRed() {
+                $('#festivals').children().removeClass();
+                $('#festivals').children().addClass('btn btn-danger');
+            }
+
+
+            function fetchResults(festival) {
+                    $('#spinner').show();
+                    $('#spinner2').show();
+                    $('#spinnerspot').show();
+                    var host = 'http://glasto.cloudapp.net:80';
+                    //var host = 'http://localhost:80';
+                    var source = getSelectedSource();
+                    if( source == 'lastfm' ) {
+                        var mode = getSelectedMode();
+                        if ( mode == 'listened') {
+                            var username = $('#lastfmid').val();
+                            if( username == null || username == '') {
+                                displayError('Please enter a Last.FM username');
+                                return;
+                            }
+                            var url = host + '/' + festival + "/" + username;
+                        }
+
+                        else if ( mode == 'rec') {
+                            var token = getAuthKey();
+                            var url = host + '/' + festival + "/" + token;
+                            if ( !isTokenValid(token) ) {
+                                displayError('Invalid Token - Please reconnect with Last.FM');
+                                return;
+                            }
+                        }
+                    }
+                    else if(source == 'spotify') {
+                        var code = getCode();
+                        if ( !isTokenValid(code) ) {
+                            displayError('Invalid Token - Please reconnect with Spotify');
+                            return;
+                        }
+                        var redirect = encodeURIComponent('http://www.wellysplosher.com/index.html?source=spotify');
+                        var url = host + '/spotify/' + festival + '/' + code + "/" + redirect;
+                    }
+
+                    if($("#yearcheck").is(':checked')) {
+                        var year = $('#yearbox').val();
+                        url = url + "?year=" + year;
+                    }
+
+                    $.ajax({
+                        url: url,
+                        dataType: 'JSON',
+                        type: 'GET',
+                        success: function (json) {
+                            clearTable();
+                            var tr;
+                            for (var i = 0; i < json.length; i++) {
+                                tr = $('<tr/>');
+                                tr.append("<td>" + json[i].name + "</td>");
+                                tr.append("<td>" + json[i].day + "</td>");
+                                tr.append("<td>" + json[i].stage + "</td>");
+                                tr.append("<td>" + json[i].status + "</td>");
+                                console.log(tr);
+                                setTableCss(tr,json[i].status);
+                                $('#results').append(tr);
+                            }
+                            $('#spinner').hide();
+                            $('#spinner2').hide();
+                            $('#spinnerspot').hide();
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            $('#results').html("ERROR - That festival may not have run that year, or the LastFM account does not exist");
+                            $('#spinner').hide();
+                            $('#spinner2').hide();
+                            $('#spinnerspot').hide();
+                        }
+                    });
+            }
+
+            function clearTable() {
+                $('#results').html("<thead><tr><th>Artist</th><th>Day</th><th>Stage</th><th>Status</th></tr></thead>");
+            }
+
+            function displayError(message) {
+                $('#results').html("   ERROR- "  + message);
+                $('#message').show();
+                $('#spinner').hide();
+                $('#spinner2').hide();
+                $('#spinnerspot').hide();
+            }
+
+            function setTableCss(tr, status) {
+                switch(status) {
+                    case "Confirmed":
+                        tr.addClass("success");
+                        break;
+                    case "To Be Confirmed":
+                        tr.addClass("info");
+                        break;
+                    case "Strong Rumour":
+                        tr.addClass("warning");
+                        break;
+                    case "Rumour":
+                        tr.addClass("danger");
+                        break;
+                    default:
+                }
+            }
+
+             function displayError(message) {
+                $('#timetable').hide();
+                $('#message').html("   ERROR- "  + message);
+                $('#message').show();
+                $('#spinner').hide();
+                $('#spinner2').hide();
+                $('#spinnerspot').hide();
+            }
+
+            function isTokenValid(token) {
+                if( token == null || token == '' ) {
+                    return false;
+                }
+                return true;
+            }
+
+            function getSelectedAlgo() {
+                if($('#aplays').is(':checked')) {
+                    return 'listened';
+                }
+                else if($('#arecco').is(':checked')) {
+                    return 'recco';
+
+                }
+            }
+
+
+            function determineClassSched(act, mode) {
+                var rank = act.reccorank;
+                var scrobs = act.scrobs;
+                if( scrobs != 0 ) {
+                    return "btn-success";
+                }
+                else if (rank != -1) {
+                    return "btn-primary no-margin";
+                }
+            }
+
+            function determineClassClash(act, mode) {
+                var rank = act.reccorank;
+                var scrobs = act.scrobs;
+                if( scrobs != 0 ) {
+                    return "btn-warning";
+                }
+                else if (rank != -1) {
+                    return "btn-info";
+                }
+            }
+
+
+            function setupTableConfig(days) {
+                $('#timetable').data('days', days.length);
+                 for (var i = 0; i < days.length; i++) {
+                    $('#ttdays').append("<div class=\"tt-day\" data-day=\"" + i + "\">" + days[i] + "</span></div>");
+                 }
+            }
+
+            function teardownTt() {
+                $('#ttdays').html('');
+                $('#ttevents').html('');
+            }
+
+            function clearTable() {
+                $('#results').html("<thead><tr><th>Artist</th><th>Day</th><th>Stage</th><th>Status</th></tr></thead>");
+            }
+
+            function setTableCss(tr, status) {
+                switch(status) {
+                    case "Confirmed":
+                        tr.addClass("success");
+                        break;
+                    case "To Be Confirmed":
+                        tr.addClass("info");
+                        break;
+                    case "Strong Rumour":
+                        tr.addClass("warning");
+                        break;
+                    case "Rumour":
+                        tr.addClass("danger");
+                        break;
+                    default:
+                }
+            }
+
+
+            function toggleyear() {
+               if($("#yearcheck").is(':checked')) {
+                    console.log("showing");
+                    $("#yearbox").prop('disabled', false);
+                }
+                else {
+                    console.log("hiding");
+                    $("#yearbox").prop('disabled', true);
+                    $("#yearbox").val("");
+                }
+            }
+
+            function getSelectedMode() {
+                if($('#plays').is(':checked')) {
+                    return 'listened';
+                }
+                else if($('#recco').is(':checked')) {
+                    return 'rec';
+
+                }
+                else if($('#both').is(':checked')) {
+                    return 'agg';
+                }
+            }
+
+            function getSelectedSource() {
+                if($('#spotify').is(':checked')) {
+                    return 'spotify';
+                }
+                else if($('#lastfm').is(':checked')) {
+                    return 'lastfm';
+                }
+            }
+
+            function authWithLastFm() {
+                // do something a bit more clever with key returned, cookie perhaps
+                var origin = window.location.origin;
+                var pathname = window.location.pathname;
+                var url = encodeURIComponent(origin + pathname + '?source=lastfm&mode=' + getSelectedMode());
+                window.location.replace('http://www.last.fm/api/auth?api_key=0ba3650498bb88d7328c97b461fc3636&cb=' + url);
+            }
+
+            function authWithSpotify() {
+                var origin = window.location.origin;
+                var pathname = window.location.pathname;
+                var url = encodeURIComponent('http://www.wellysplosher.com/lineup.html?source=spotify');
+                //var url = 'http://www.wellysplosher.com/schedule.html?source=spotify';
+                window.location.replace('https://accounts.spotify.com/authorize/?client_id=4f9ea44544be4b789e54bfd9c23ebdc9&response_type=code&scope=user-read-private%20user-read-email%20user-library-read%20playlist-read-private&redirect_uri=' + url);
+            }
+
+            function getAuthKey() {
+                return getParameterByName('token');
+            }
+
+            function getSource() {
+                return getParameterByName('source');
+            }
+
+            function getMode() {
+                return getParameterByName('mode');
+            }
+
+            function getCode() {
+                return getParameterByName('code');
+            }
+
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+
+</script>
+<script src="js/main.js"></script>
+
+
+<hr>
+
+<footer>
+    <p>Powered by Last.FM and eFestivals.co.uk</p>
+</footer>
+</div>
+<!-- /container -->
+
+
+</body>
+</html>
