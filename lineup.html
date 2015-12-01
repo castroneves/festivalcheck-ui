@@ -68,6 +68,13 @@
         min-width: 300px;
         }
 
+        .width502 {
+        width:30%;
+        margin: auto;
+        margin-top:15px;
+        min-width: 300px;
+        }
+
         .glyphicon-refresh-animate {
         -animation: spin .7s infinite linear;
         -webkit-animation: spin2 .7s infinite linear;
@@ -204,16 +211,20 @@
 </div>
 
 
-<div class="row top15 width501 text-center">
-    <!--<div class="form-group">-->
-    <div class="input-group input-group-lg">
-        <!--<span class="input-group-addon " ><i class="icon-large icon-last-fm"></i></span>-->
-        <span class="input-group-addon"><input id="yearcheck" type="checkbox" aria-label="..."
-                                               onclick="toggleyear()"></span>
-
-        <input type="text" class="form-control input-lg" placeholder="Change Year (default 2015)" id="yearbox"
-               style="width:95%" disabled="true">
-    </div>
+<div class="row top15 width502 text-center">
+        <select class="form-control input-lg" id="yearsel">
+            <option>2016</option>
+            <option>2015</option>
+            <option>2014</option>
+            <option>2013</option>
+            <option>2012</option>
+            <option>2011</option>
+            <option>2010</option>
+            <option>2009</option>
+            <option>2008</option>
+            <option>2007</option>
+            <option>2006</option>
+        </select>
 </div>
 
 
@@ -397,14 +408,14 @@
                             displayError('Invalid Token - Please reconnect with Spotify');
                             return;
                         }
-                        var redirect = encodeURIComponent('http://www.wellysplosher.com/index.html?source=spotify');
+                        var redirect = encodeURIComponent('http://www.wellysplosher.com/lineup.html?source=spotify');
                         var url = host + '/spotify/' + festival + '/' + code + "/" + redirect;
                     }
 
-                    if($("#yearcheck").is(':checked')) {
-                        var year = $('#yearbox').val();
-                        url = url + "?year=" + year;
-                    }
+
+
+                    var year = $('#yearsel').val();
+                    url = url + "?year=" + year;
 
                     $.ajax({
                         url: url,
