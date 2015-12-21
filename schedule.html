@@ -75,11 +75,23 @@
             .glyphicon-refresh-animate {
             -animation: spin .7s infinite linear;
             -webkit-animation: spin2 .7s infinite linear;
+            -moz-animation: spin3 .7s infinite linear;
             }
 
             @-webkit-keyframes spin2 {
             from { -webkit-transform: rotate(0deg);}
             to { -webkit-transform: rotate(360deg);}
+            }
+
+            @-moz-keyframes spin3 {
+            from {
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            }
+            to {
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            }
             }
 
             @keyframes spin {
@@ -245,18 +257,17 @@
         </div>
 
 
-        <div class="row top15">
+        <div class="row top15 text-center">
             <div class="container">
                 <div class="btn-group btn-group-lg" role="group" aria-label="Large button group" id="festivals">
                     <button type="button " class="btn btn-danger" onclick="fetchResults(&#39;g&#39;)">Glastonbury</button>
-                    <button type="button"  class="btn btn-danger" onclick="fetchResults(&#39;leeds&#39;)">Leeds</button>
                     <button type="button"  class="btn btn-danger" onclick="fetchResults(&#39;iow&#39;)">Isle of Wight</button>
-                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;latitude&#39;)">Latitude</button>
-                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;download&#39;)">Download</button>
-                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;80srewind&#39;)">80s Rewind</button>
-                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;reading&#39;)">Reading</button>
-                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;vvvchelmsford&#39;)">V Chelmsford</button>
-                    <button type="button" disabled="true" class="btn btn-danger" onclick="fetchResults(&#39;vvvstafford&#39;)">V Stafford</button>
+                    <button type="button"  class="btn btn-danger" onclick="fetchResults(&#39;lat&#39;)">Latitude</button>
+                    <button type="button"  class="btn btn-danger" onclick="fetchResults(&#39;download&#39;)">Download</button>
+                    <button type="button"  class="btn btn-danger" onclick="fetchResults(&#39;reading&#39;)">Reading</button>
+                    <button type="button"  class="btn btn-danger" onclick="fetchResults(&#39;leeds&#39;)">Leeds</button>
+                    <button type="button"  class="btn btn-danger" onclick="fetchResults(&#39;vvvchelmsford&#39;)">V Chelmsford</button>
+                    <button type="button"  class="btn btn-danger" onclick="fetchResults(&#39;vvvstafford&#39;)">V Stafford</button>
                 </div>
             </div>
         </div>
@@ -660,7 +671,7 @@
 
             <div id="message"></div>
 
-            <div hidden class="timetable" data-days="5" data-hours="16" style=" overflow-x:auto; overflow-y: hidden; white-space: nowrap;" id="timetable">
+            <div hidden class="timetable" data-days="5" data-hours="15" style="padding-bottom=0px; overflow-x:auto; overflow-y: hidden; white-space: nowrap;" id="timetable">
                 <ul class="tt-times" style="padding-left: 39px;">
                     <il class="tt-time" data-time="0" style="width: 130px; height: 350px; margin-bottom: -350px;">
                         11<span class="hidden-phone">.00</span></il>

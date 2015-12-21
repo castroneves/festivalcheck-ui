@@ -117,7 +117,8 @@ $(function () {
         jQuery('.tt-day', this).css('margin-right', 0);
 
         var ttDaysExtras = parseInt(jQuery('.tt-days', this).css('border-left-width')) + parseInt(jQuery('.tt-days', this).css('border-right-width')) + parseInt(jQuery('.tt-days', this).css('padding-left')) + parseInt(jQuery('.tt-days', this).css('padding-right'));
-
+        console.log(ttDaysExtras);
+        ttDaysExtras=0;
         // have to float left to get width correctly in IE8 and below
         jQuery('.tt-days', this).css('float', 'left');
         var daysWidth = jQuery('.tt-days', this).width() + ttDaysExtras;  // + border
@@ -144,17 +145,21 @@ $(function () {
 
 
         var scaleFactor = $(this).calcuateScaleFactor();
+//        var scaleFactor = 1;
         //var scaleFactor = 1;
         console.log(scaleFactor);
-        console.log($(this).width());
+        console.log("div width =" + $(this).width());
 
         var ttWidth = $(this).width() * scaleFactor;
         var width = ($(this).width() * scaleFactor) - jQuery('.tt-days', this).width() - ttDaysExtras;
 //        var width = 1500 - jQuery('.tt-days', this).width() - ttDaysExtras;
+        console.log("without header width =" + width);
         var height = $(this).height();
         var hours = $(this).data('hours');
+        console.log("hours =" + hours);
 //        var hours = 10;
         var hourWidth = Math.floor(width / hours);
+        console.log("hour width =" + hourWidth);
         var timeWidth = hourWidth - parseInt(jQuery('.tt-time', this).first().css('padding-left')) - parseInt(jQuery('.tt-time', this).first().css('padding-right')) - parseInt(jQuery('.tt-time', this).first().css('border-left-width')) - parseInt(jQuery('.tt-time', this).first().css('border-right-width'));
         var widthLeft = width;
         var timeHeight = height - ttTimesExtras - ttTimeExtras;
@@ -165,7 +170,7 @@ $(function () {
 
         // set sizes of the times
         jQuery('.tt-time', this).each(function (i) {
-            if (i < hours - 1) {
+            if (i < hours) {
                 var timeStart = $(this).data('time') * hourWidth;
                 $(this).css('left', timeStart + daysWidth);
                 $(this).width(timeWidth);
