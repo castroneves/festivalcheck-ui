@@ -76,6 +76,7 @@
             -animation: spin .7s infinite linear;
             -webkit-animation: spin2 .7s infinite linear;
             -moz-animation: spin3 .7s infinite linear;
+            -ms-animation: spin4 .7s infinite linear;
             }
 
             @-webkit-keyframes spin2 {
@@ -91,6 +92,15 @@
             to {
             -webkit-transform: rotate(360deg);
             -moz-transform: rotate(360deg);
+            }
+            }
+
+            @-ms-keyframes spin4 {
+            from {
+            -ms-transform: rotate(0deg);
+            }
+            to {
+            -ms-transform: rotate(360deg);
             }
             }
 
@@ -464,18 +474,18 @@
                                 console.log(json.sched[days[i]]);
                                 var acts = json.sched[days[i]];
                                 if ( typeof acts !== "undefined" ) {
-                                    for ( act of acts ) {
+                                    $.each( acts, function(j,act) {
                                         var clazz = determineClassSched(act, mode);
                                         $('#ttevents').append("<li class=\"tt-event " + clazz + "\" data-id=\"" + act.name + "\" data-day=\"" + i + "\" data-start=\"" + act.ttStart + "\" data-duration=\"" + act.ttDuration + "\" rel=\"tooltip\" unselectable=\"on\">" + act.name + "<br>" + act.stage + "<br>" + act.startTime + " - " + act.endTime + "</li>");
-                                    }
+                                    });
                                 }
 
                                 var clashes = json.clash[days[i]];
                                 if ( typeof clashes !== "undefined" ) {
-                                    for ( act of clashes ) {
+                                    $.each( clashes, function(j,act) {
                                         var clazz = determineClassClash(act, mode);
                                         $('#ttevents').append("<li class=\"tt-event " + clazz + "\" data-id=\"" + act.name + "\" data-day=\"" + i + "\" data-start=\"" + act.ttStart + "\" data-duration=\"" + act.ttDuration + "\" rel=\"tooltip\" unselectable=\"on\">" + act.name + "<br>" + act.stage + "<br>" + act.startTime + " - " + act.endTime + "</li>");
-                                    }
+                                    });
                                 }
 
                             }
