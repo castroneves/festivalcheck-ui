@@ -1,0 +1,67 @@
+.top15 { margin-top:15px; }
+.bottom15 {
+    margin:auto;
+    margin-bottom:15px;
+}
+
+.btn-primary {
+    margin-top:0px;
+}
+
+
+.width50 {
+    width:45%;
+    margin: auto;
+    min-width:300px;
+}
+
+.width501 {
+    width:35%;
+    margin: auto;
+    margin-top:15px;
+    min-width:300px;
+}
+
+.width502 {
+    width:30%;
+    margin: auto;
+    margin-top:15px;
+    min-width: 300px;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+    -moz-animation: spin3 .7s infinite linear;
+    -ms-animation: spin4 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes spin3 {
+    from {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-ms-keyframes spin4 {
+    from {
+        -ms-transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
