@@ -16,6 +16,7 @@ $(function () {
     };
 
 
+
     $.fn.initialiseTT = function () {
         var daysArr = new Array(new Array(), new Array(), new Array(), new Array(), new Array(), new Array(), new Array());
 
@@ -111,6 +112,14 @@ $(function () {
     }
 
     $.fn.resizeTimetable = function () {
+        if ( $(this).width() > 1100) {
+            $('#ttdiv').addClass("paddesktop");
+            $('#ttdiv').removeClass("padmobile");
+        } else {
+            $('#ttdiv').addClass("padmobile");
+            $('#ttdiv').removeClass("paddesktop");
+        }
+
         var tt = this;
         // reset day widths to allow for day names changing based on screen width
         jQuery('.tt-day', this).width('auto');

@@ -29,6 +29,14 @@
     min-width: 300px;
 }
 
+.padmobile {
+    padding: 3px;
+}
+
+.paddesktop {
+    padding: 30px;
+}
+
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
