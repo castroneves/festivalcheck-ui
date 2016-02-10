@@ -63,17 +63,14 @@ function toggleModeSelect() {
         if ($('#plays').is(':checked')) {
             console.log("regular");
             $('#listeneddiv').show();
-            $('#authdiv').hide();
             $('#algodiv').hide();
         }
         else if ($('#recco').is(':checked')) {
-            $('#listeneddiv').hide();
-            $('#authdiv').show();
+            $('#listeneddiv').show();
             $('#algodiv').hide();
         }
         else if ($('#both').is(':checked')) {
-            $('#listeneddiv').hide();
-            $('#authdiv').show();
+            $('#listeneddiv').show();
             $('#algodiv').show();
         }
     }
@@ -126,36 +123,25 @@ function fetchResults(festival) {
     $('#spinner').show();
     $('#spinner2').show();
     $('#spinnerspot').show();
-    var host = 'http://glasto.cloudapp.net:80';
-    //var host = 'http://localhost:80';
+//    var host = 'http://glasto.cloudapp.net:80';
+    var host = 'http://localhost:80';
     var source = getSelectedSource();
     if (source == 'lastfm') {
         var mode = getSelectedMode();
-        if (mode == 'listened') {
-            var username = $('#lastfmid').val();
-            if (username == null || username == '') {
-                displayError('Please enter a Last.FM username');
-                return;
-            }
-            var url = host + '/s/' + festival + '/' + username;
+        var username = $('#lastfmid').val();
+        if (username == null || username == '') {
+            displayError('Please enter a Last.FM username');
+            return;
         }
-
+        if (mode == 'listened') {
+            var url = host + '/s/rec/' + festival + '/' + username;
+        }
         else if (mode == 'rec') {
-            var token = getAuthKey();
-            var url = host + '/s/r/' + festival + '/' + token;
-            if (!isTokenValid(token)) {
-                displayError('Invalid Token - Please reconnect with Last.FM');
-                return;
-            }
+            var url = host + '/s/rec/' + festival + '/' + username;
         }
         else if (mode == 'agg') {
-            var token = getAuthKey();
-            if (!isTokenValid(token)) {
-                displayError('Invalid Token - Please reconnect with Last.FM');
-                return;
-            }
             var algo = getSelectedAlgo();
-            var url = host + '/s/h/' + algo + '/' + festival + '/' + token;
+            var url = host + '/s/h/' + algo + '/' + festival + '/' + username;
         }
     }
     else if (source == 'spotify') {

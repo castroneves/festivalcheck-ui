@@ -59,24 +59,6 @@ function selectCurrentMode() {
 
 function toggleModeSelect() {
     var source = getSource();
-    if (source != 'spotify') {
-        if ($('#plays').is(':checked')) {
-            console.log("regular");
-            $('#listeneddiv').show();
-            $('#authdiv').hide();
-            $('#algodiv').hide();
-        }
-        else if ($('#recco').is(':checked')) {
-            $('#listeneddiv').hide();
-            $('#authdiv').show();
-            $('#algodiv').hide();
-        }
-        else if ($('#both').is(':checked')) {
-            $('#listeneddiv').hide();
-            $('#authdiv').show();
-            $('#algodiv').show();
-        }
-    }
 }
 
 function toggleSource() {
@@ -126,27 +108,21 @@ function fetchResults(festival) {
     $('#spinner').show();
     $('#spinner2').show();
     $('#spinnerspot').show();
-    var host = 'http://glasto.cloudapp.net:80';
-    //var host = 'http://localhost:80';
+//    var host = 'http://glasto.cloudapp.net:80';
+    var host = 'http://localhost:80';
     var source = getSelectedSource();
     if (source == 'lastfm') {
         var mode = getSelectedMode();
+        var username = $('#lastfmid').val();
+        if (username == null || username == '') {
+            displayError('Please enter a Last.FM username');
+            return;
+        }
         if (mode == 'listened') {
-            var username = $('#lastfmid').val();
-            if (username == null || username == '') {
-                displayError('Please enter a Last.FM username');
-                return;
-            }
             var url = host + '/' + festival + "/" + username;
         }
-
         else if (mode == 'rec') {
-            var token = getAuthKey();
-            var url = host + '/' + festival + "/" + token;
-            if (!isTokenValid(token)) {
-                displayError('Invalid Token - Please reconnect with Last.FM');
-                return;
-            }
+            var url = host + '/rec/' + festival + "/" + username;
         }
     }
     else if (source == 'spotify') {
