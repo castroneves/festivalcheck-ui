@@ -134,7 +134,7 @@ function fetchResults(festival) {
             return;
         }
         if (mode == 'listened') {
-            var url = host + '/s/rec/' + festival + '/' + username;
+            var url = host + '/s/' + festival + '/' + username;
         }
         else if (mode == 'rec') {
             var url = host + '/s/rec/' + festival + '/' + username;
