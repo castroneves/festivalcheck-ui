@@ -108,8 +108,8 @@ function fetchResults(festival) {
     $('#spinner').show();
     $('#spinner2').show();
     $('#spinnerspot').show();
-//    var host = 'http://glasto.cloudapp.net:80';
-    var host = 'http://localhost:80';
+    var host = 'http://glasto.cloudapp.net:80';
+//    var host = 'http://localhost:80';
     var source = getSelectedSource();
     if (source == 'lastfm') {
         var mode = getSelectedMode();
