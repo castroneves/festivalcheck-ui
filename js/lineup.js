@@ -45,15 +45,24 @@ function selectCurrentMode() {
     } else {
         $('#lastfm').prop("checked", true).trigger("click");
     }
-    if (source != 'spotify') {
-        var mode = getMode();
-        if (mode == 'rec') {
-            $('#recco').prop("checked", true).trigger("click");
-        } else if (mode == 'agg') {
-            $('#both').prop("checked", true).trigger("click");
-        } else {
-            $('#plays').prop("checked", true).trigger("click");
-        }
+    var mode = getMode();
+    if (mode == 'rec') {
+        $('#recco').prop("checked", true).trigger("click");
+    } else if (mode == 'agg') {
+        $('#both').prop("checked", true).trigger("click");
+    } else {
+        $('#plays').prop("checked", true).trigger("click");
+    }
+}
+
+function toggleMode() {
+    var mode = getSelectedMode();
+    if (mode == 'rec') {
+        $('#recco').prop("checked", true).trigger("click");
+    } else if (mode == 'agg') {
+        $('#both').prop("checked", true).trigger("click");
+    } else {
+        $('#plays').prop("checked", true).trigger("click");
     }
 }
 
@@ -73,7 +82,7 @@ function toggleSource() {
     }
     else if ($('#spotify').is(':checked')) {
         //hide lastfm stuff
-        $('#lfmmodediv').hide();
+        $('#lfmmodediv').show();
         $('#authdiv').hide();
         $('#algodiv').hide();
         $('#listeneddiv').hide();
@@ -94,13 +103,19 @@ function toggleSource() {
 }
 
 function updateButtonsGreen() {
+    $('#modeselect').children().removeClass();
+    $('#modeselect').children().addClass('btn btn-success');
     $('#festivals').children().removeClass();
     $('#festivals').children().addClass('btn btn-success');
+    toggleMode();
 }
 
 function updateButtonsRed() {
+    $('#modeselect').children().removeClass();
+    $('#modeselect').children().addClass('btn btn-danger');
     $('#festivals').children().removeClass();
     $('#festivals').children().addClass('btn btn-danger');
+    toggleMode();
 }
 
 
@@ -132,7 +147,13 @@ function fetchResults(festival) {
             return;
         }
         var redirect = encodeURIComponent('http://www.wellysplosher.com/lineup.html?source=spotify');
-        var url = host + '/spotify/' + festival + '/' + code + "/" + redirect;
+        var mode = getSelectedMode();
+        if (mode == 'listened') {
+            var url = host + '/spotify/' + festival + '/' + code + "/" + redirect;
+        }
+        else if (mode == 'rec') {
+            var url = host + '/spotify/rec/' + festival + '/' + code + "/" + redirect;
+        }
     }
 
 
