@@ -45,34 +45,49 @@ function selectCurrentMode() {
     } else {
         $('#lastfm').prop("checked", true).trigger("click");
     }
-    if (source != 'spotify') {
-        var mode = getMode();
-        if (mode == 'rec') {
-            $('#recco').prop("checked", true).trigger("click");
-        } else if (mode == 'agg') {
-            $('#both').prop("checked", true).trigger("click");
-        } else {
-            $('#plays').prop("checked", true).trigger("click");
-        }
+    var mode =  getSelectedMode();
+    if (mode == 'rec') {
+        $('#recco').prop("checked", true).trigger("click");
+    } else if (mode == 'agg') {
+        $('#both').prop("checked", true).trigger("click");
+        toggleAlgo();
+    } else {
+        $('#plays').prop("checked", true).trigger("click");
+    }
+}
+
+function toggleMode() {
+    var mode = getSelectedMode();
+    if (mode == 'rec') {
+        $('#recco').prop("checked", true).trigger("click");
+    } else if (mode == 'agg') {
+        $('#both').prop("checked", true).trigger("click");
+        toggleAlgo();
+    } else {
+        $('#plays').prop("checked", true).trigger("click");
+    }
+}
+
+function toggleAlgo() {
+    var algo = getSelectedAlgo();
+    if (algo == 'recco') {
+        $('#arecco').prop("checked", true).trigger("click");
+    } else if (algo == 'listened') {
+        $('#aplays').prop("checked", true).trigger("click");
     }
 }
 
 function toggleModeSelect() {
     var source = getSelectedSource();
-    if (source != 'spotify') {
-        if ($('#plays').is(':checked')) {
-            console.log("regular");
-            $('#listeneddiv').show();
-            $('#algodiv').hide();
-        }
-        else if ($('#recco').is(':checked')) {
-            $('#listeneddiv').show();
-            $('#algodiv').hide();
-        }
-        else if ($('#both').is(':checked')) {
-            $('#listeneddiv').show();
-            $('#algodiv').show();
-        }
+    if ($('#plays').is(':checked')) {
+        $('#algodiv').hide();
+    }
+    else if ($('#recco').is(':checked')) {
+        $('#algodiv').hide();
+    }
+    else if ($('#both').is(':checked')) {
+        $('#algodiv').show();
+        toggleAlgo();
     }
 }
 
@@ -88,7 +103,6 @@ function toggleSource() {
     }
     else if ($('#spotify').is(':checked')) {
         //hide lastfm stuff
-        $('#lfmmodediv').hide();
         $('#authdiv').hide();
         $('#algodiv').hide();
         $('#listeneddiv').hide();
@@ -109,13 +123,23 @@ function toggleSource() {
 }
 
 function updateButtonsGreen() {
+    $('#algoselect').children().removeClass();
+    $('#algoselect').children().addClass('btn btn-success');
+    $('#modeselect').children().removeClass();
+    $('#modeselect').children().addClass('btn btn-success');
     $('#festivals').children().removeClass();
     $('#festivals').children().addClass('btn btn-success');
+    toggleMode();
 }
 
 function updateButtonsRed() {
+    $('#algoselect').children().removeClass();
+    $('#algoselect').children().addClass('btn btn-danger');
+    $('#modeselect').children().removeClass();
+    $('#modeselect').children().addClass('btn btn-danger');
     $('#festivals').children().removeClass();
     $('#festivals').children().addClass('btn btn-danger');
+    toggleMode();
 }
 
 function fetchResults(festival) {
@@ -151,7 +175,17 @@ function fetchResults(festival) {
             return;
         }
         var redirect = encodeURIComponent('http://www.wellysplosher.com/schedule.html?source=spotify');
-        var url = host + '/s/spotify/' + festival + '/' + code + "/" + redirect;
+        var mode = getSelectedMode();
+        if (mode == 'listened') {
+            var url = host + '/s/spotify/' + festival + '/' + code + "/" + redirect;
+        }
+        else if (mode == 'rec') {
+            var url = host + '/s/spotify/rec/' + festival + '/' + code + "/" + redirect;
+        }
+        else if (mode == 'agg') {
+            var algo = getSelectedAlgo();
+            var url = host + '/s/h/spotify/' + algo + '/' + festival + '/' + code + "/" + redirect;
+        }
     }
 
     var year = $('#yearsel').val();
@@ -228,7 +262,6 @@ function getSelectedAlgo() {
     }
     else if ($('#arecco').is(':checked')) {
         return 'recco';
-
     }
 }
 
