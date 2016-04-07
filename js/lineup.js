@@ -126,6 +126,7 @@ function fetchResults(festival) {
     var host = 'http://glasto.cloudapp.net:80';
 //    var host = 'http://localhost:80';
     var source = getSelectedSource();
+    var year = $('#yearsel').val();
     if (source == 'lastfm') {
         var mode = getSelectedMode();
         var username = $('#lastfmid').val();
@@ -134,10 +135,10 @@ function fetchResults(festival) {
             return;
         }
         if (mode == 'listened') {
-            var url = host + '/' + festival + "/" + username;
+            var url = host + '/' + festival + "/" + year + "/" + username;
         }
         else if (mode == 'rec') {
-            var url = host + '/rec/' + festival + "/" + username;
+            var url = host + '/rec/' + festival + "/" + year + "/" + username;
         }
     }
     else if (source == 'spotify') {
@@ -149,16 +150,12 @@ function fetchResults(festival) {
         var redirect = encodeURIComponent('http://www.wellysplosher.com/lineup.html?source=spotify');
         var mode = getSelectedMode();
         if (mode == 'listened') {
-            var url = host + '/spotify/' + festival + '/' + code + "/" + redirect;
+            var url = host + '/spotify/' + festival + '/' + year + "/" + code + "/" + redirect;
         }
         else if (mode == 'rec') {
-            var url = host + '/spotify/rec/' + festival + '/' + code + "/" + redirect;
+            var url = host + '/spotify/rec/' + festival + '/' + year + "/" + code + "/" + redirect;
         }
     }
-
-
-    var year = $('#yearsel').val();
-    url = url + "?year=" + year;
 
     $.ajax({
         url: url,

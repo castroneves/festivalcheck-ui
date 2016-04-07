@@ -149,6 +149,7 @@ function fetchResults(festival) {
     $('#spinnerspot').show();
     var host = 'http://glasto.cloudapp.net:80';
 //    var host = 'http://localhost:80';
+    var year = $('#yearsel').val();
     var source = getSelectedSource();
     if (source == 'lastfm') {
         var mode = getSelectedMode();
@@ -158,14 +159,14 @@ function fetchResults(festival) {
             return;
         }
         if (mode == 'listened') {
-            var url = host + '/s/' + festival + '/' + username;
+            var url = host + '/s/' + festival + '/' + year + "/" + username;
         }
         else if (mode == 'rec') {
-            var url = host + '/s/rec/' + festival + '/' + username;
+            var url = host + '/s/rec/' + festival + '/' + year + "/" + username;
         }
         else if (mode == 'agg') {
             var algo = getSelectedAlgo();
-            var url = host + '/s/h/' + algo + '/' + festival + '/' + username;
+            var url = host + '/s/h/' + algo + '/' + festival + '/' + year + "/" + username;
         }
     }
     else if (source == 'spotify') {
@@ -177,21 +178,17 @@ function fetchResults(festival) {
         var redirect = encodeURIComponent('http://www.wellysplosher.com/schedule.html?source=spotify');
         var mode = getSelectedMode();
         if (mode == 'listened') {
-            var url = host + '/s/spotify/' + festival + '/' + code + "/" + redirect;
+            var url = host + '/s/spotify/' + festival + '/' + year + "/" + code + "/" + redirect;
         }
         else if (mode == 'rec') {
-            var url = host + '/s/spotify/rec/' + festival + '/' + code + "/" + redirect;
+            var url = host + '/s/spotify/rec/' + festival + '/' + year + "/" + code + "/" + redirect;
         }
         else if (mode == 'agg') {
             var algo = getSelectedAlgo();
-            var url = host + '/s/h/spotify/' + algo + '/' + festival + '/' + code + "/" + redirect;
+            var url = host + '/s/h/spotify/' + algo + '/' + festival + '/' + year + "/" + code + "/" + redirect;
         }
     }
 
-    var year = $('#yearsel').val();
-    url = url + "?year=" + year;
-
-    console.log("Sending");
     $.ajax({
         url: url,
         dataType: 'JSON',
