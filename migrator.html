@@ -17,46 +17,46 @@
     <script src="./index_files/jquery.min.js"></script>
     <style type="text/css"></style>
     <style>
-            .boxed {
-                background-color:rgba(0, 0, 0, 0.6);
-                border-radius: 15px;
-                width: 45%;
-                padding: 10px;
-                padding-left: 30px;
-            }
-            .boxed-alert {
-                background-color:rgba(51, 204, 204, 0.8);
-                border-radius: 15px;
-                padding: 10px;
-                width: 45%;
-                padding-left: 30px;
-            }
+        .boxed {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            width: 45%;
+            padding: 10px;
+            padding-left: 30px;
+        }
+        .boxed-alert {
+            background-color: rgba(51, 204, 204, 0.8);
+            border-radius: 15px;
+            padding: 10px;
+            width: 45%;
+            padding-left: 30px;
+        }
 
-            .width5 {
-                width:35%;
-                min-width:300px;
-            }
+        .width5 {
+            width: 35%;
+            min-width: 300px;
+        }
 
-            .width51 {
-                width:35%;
-                margin-top:15px;
-                min-width:300px;
-            }
-            .width510 {
-                width:45%;
-                margin-top:15px;
-                min-width:318px;
-            }
+        .width51 {
+            width: 35%;
+            margin-top: 15px;
+            min-width: 300px;
+        }
+        .width510 {
+            width: 45%;
+            margin-top: 15px;
+            min-width: 318px;
+        }
 
+        .width52 {
+            width: 30%;
+            margin-top: 15px;
+            min-width: 300px;
+        }
 
-            .width52 {
-                width:30%;
-                margin-top:15px;
-                min-width: 300px;
-            }
-
-            .top150 { margin-top:38px; }
-
+        .top150 {
+            margin-top: 38px;
+        }
 
 
     </style>
@@ -105,8 +105,27 @@
 <div class="container">
 
     <div class="boxed-alert">
+        <div class="row  top15 width510" id="spotifyauthdiv">
+            <label for="authspotify">Authorise Spotify to access your account:</label>
+
+            <div class="input-group input-group-lg btn-group-lg" style="width:95%;">
+                <span class="input-group-addon">
+                    <i id="spotifyauthindno" class="fa fa-close fa-lg" style="color:#d51007"></i>
+                    <i id="spotifyauthindyes" class="fa fa-check fa-lg" style="color:green"></i>
+                </span>
+
+                <button type="button" class="btn btn-success" onclick="authWithSpotify()" style="width:100%;"
+                        id="authspotify"><i
+                        class="fa fa-spotify fa-lg"></i> Connect with Spotify
+                </button>
+            <span id="spinner" class="input-group-addon"><span
+                    class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
+            </div>
+        </div>
+
         <div class="row width5 top15 text-left" id="listeneddiv">
             <label for="lastfmid">Last FM Username:</label>
+
             <div class="input-group input-group-lg">
                 <span class="input-group-addon"><i class="fa fa-lastfm-square fa-lg" style="color:#d51007"></i></span>
 
@@ -116,7 +135,7 @@
 
 
         <div class="row top15 width52">
-            <label for="limitsel">How many tracks to include in playlist:</label>
+            <label for="limitsel">How many tracks to include in playlist / How many artists to follow:</label>
             <select class="form-control input-lg" id="limitsel">
                 <option>50</option>
                 <option>100</option>
@@ -143,28 +162,17 @@
         </div>
 
 
-        <div class="row  top15 width510" id="spotifyauthdiv">
-            <label for="authspotify">Authorise Spotify to access your account:</label>
-            <div class="input-group input-group-lg btn-group-lg" style="width:95%;">
-                <span class="input-group-addon">
-                    <i id="spotifyauthindno" class="fa fa-close fa-lg" style="color:#d51007"></i>
-                    <i id="spotifyauthindyes" class="fa fa-check fa-lg" style="color:green"></i>
-                </span>
 
-                <button type="button" class="btn btn-success" onclick="authWithSpotify()" style="width:100%;" id="authspotify"><i
-                        class="fa fa-spotify fa-lg"></i> Connect with Spotify
-                </button>
-        <span id="spinner" class="input-group-addon"><span
-                class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
-            </div>
-        </div>
     </div>
 
     <div class="boxed top150" style="min-width:400px;">
         <div class="row  width510" id="gobuttondiv" style="min-width:390px;">
             <div class="input-group input-group-lg btn-group-lg" style="width:95%;">
-                <button type="button" class="btn btn-success" onclick="go()" style="width:100%;"><i
+                <button type="button" class="btn btn-success" onclick="go('toptracks')" style="width:100%; margin-bottom: 10px"><i
                         class="fa fa-spotify fa-lg"></i> Create Playlist
+                </button>
+                <button type="button" class="btn btn-success" onclick="go('followartists')" style="width:100%;"><i
+                        class="fa fa-spotify fa-lg"></i> Follow Artists
                 </button>
             </div>
         </div>
@@ -180,82 +188,81 @@
     <!--<table id="results" class="table table-striped"></table>-->
     <!--</div>-->
     <script>
-            $(document).ready(function () {
-                $('#spinner').hide();
+        $(document).ready(function () {
+            $('#spinner').hide();
 
-                if (isTokenValid(getCode())) {
-                    $('#spotifyauthindyes').show();
-                    $('#spotifyauthindno').hide();
-                }
-                else {
-                    $('#spotifyauthindno').show();
-                    $('#spotifyauthindyes').hide();
+            if (isTokenValid(getCode())) {
+                $('#spotifyauthindyes').show();
+                $('#spotifyauthindno').hide();
+            }
+            else {
+                $('#spotifyauthindno').show();
+                $('#spotifyauthindyes').hide();
+            }
+        });
+
+        function go(method) {
+            $('#spinner').show();
+            // var host = 'http://spotifylastfm.cloudapp.net:80';
+            var host = 'http://localhost:8080';
+
+            var code = getCode();
+            if (!isTokenValid(code)) {
+                displayError('Invalid Token - Please reconnect with Spotify');
+                return;
+            }
+            var username = $('#lastfmid').val();
+            var limit = $('#limitsel').val();
+            var period = $('#periodsel').val();
+            var redirect = encodeURIComponent('http://www.wellysplosher.com/migrator.html');
+            var url = host + '/' + method + '/' + limit + '/' + period + '/' + username + '/' + code + '/' + redirect;
+
+            $.ajax({
+                url: url,
+                dataType: 'JSON',
+                type: 'GET',
+                success: function (json) {
+                    $('#spinner').hide();
+                    displayError('Done!');
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    displayError("An Error occured, please try again later");
+                    $('#spinner').hide();
                 }
             });
+        }
 
-            function go() {
-                $('#spinner').show();
-               // var host = 'http://spotifylastfm.cloudapp.net:80';
-                var host = 'http://localhost:8080';
-
-                var code = getCode();
-                if (!isTokenValid(code)) {
-                    displayError('Invalid Token - Please reconnect with Spotify');
-                    return;
-                }
-                var username = $('#lastfmid').val();
-                var limit = $('#limitsel').val();
-                var period = $('#periodsel').val();
-                var redirect = encodeURIComponent('http://www.wellysplosher.com/migrator.html');
-                var url = host + '/toptracks/' + limit + '/' + period + '/' + username + '/' + code + '/' + redirect;
-
-                $.ajax({
-                    url: url,
-                    dataType: 'JSON',
-                    type: 'GET',
-                    success: function (json) {
-                        $('#spinner').hide();
-                        displayError('Done!');
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        displayError("An Error occured, please try again later");
-                        $('#spinner').hide();
-                    }
-                });
-            }
-
-            function getParameterByName(name) {
-                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
                     results = regex.exec(location.search);
-                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-            }
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
 
-            function getCode() {
-                return getParameterByName('code');
-            }
+        function getCode() {
+            return getParameterByName('code');
+        }
 
-            function isTokenValid(token) {
-                if (token == null || token == '') {
-                    return false;
-                }
-                return true;
+        function isTokenValid(token) {
+            if (token == null || token == '') {
+                return false;
             }
+            return true;
+        }
 
-            function displayError(message) {
-                $('#message').html(message);
-                $('#message').show();
-                $('#spinner').hide();
-            }
+        function displayError(message) {
+            $('#message').html(message);
+            $('#message').show();
+            $('#spinner').hide();
+        }
 
-            function authWithSpotify() {
-                var origin = window.location.origin;
-                var pathname = window.location.pathname;
-                var url = encodeURIComponent('http://www.wellysplosher.com/migrator.html');
-                //var url = 'http://www.wellysplosher.com/schedule.html?source=spotify';
-                window.location.replace('https://accounts.spotify.com/authorize/?client_id=4f9ea44544be4b789e54bfd9c23ebdc9&response_type=code&scope=user-read-private%20user-read-email%20user-library-read%20playlist-modify-public%20playlist-modify-private%20playlist-read-private&redirect_uri=' + url);
-            }
-
+        function authWithSpotify() {
+            var origin = window.location.origin;
+            var pathname = window.location.pathname;
+            var url = encodeURIComponent('http://www.wellysplosher.com/migrator.html');
+            //var url = 'http://www.wellysplosher.com/schedule.html?source=spotify';
+            window.location.replace('https://accounts.spotify.com/authorize/?client_id=4f9ea44544be4b789e54bfd9c23ebdc9&response_type=code&scope=user-read-private%20user-read-email%20user-library-read%20playlist-modify-public%20playlist-modify-private%20playlist-read-private%20user-follow-modify&redirect_uri=' + url);
+        }
 
 
     </script>
