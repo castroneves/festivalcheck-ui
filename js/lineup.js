@@ -29,8 +29,7 @@ function enactDeepLinking() {
     }
     var year = getParameterByName('year');
     if (year != "") {
-        $('#yearcheck').trigger("click");
-        $('#yearbox').val(year);
+        $('#yearsel').val(year);
     }
     var festival = getParameterByName('festival');
     if (festival != "") {

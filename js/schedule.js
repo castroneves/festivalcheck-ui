@@ -29,8 +29,7 @@ function enactDeepLinking() {
     }
     var year = getParameterByName('year');
     if (year != "") {
-        $('#yearcheck').trigger("click");
-        $('#yearbox').val(year);
+        $('#yearsel').val(year);
     }
     var festival = getParameterByName('festival');
     if (festival != "") {
@@ -45,7 +44,7 @@ function selectCurrentMode() {
     } else {
         $('#lastfm').prop("checked", true).trigger("click");
     }
-    var mode =  getSelectedMode();
+    var mode =  getMode();
     if (mode == 'rec') {
         $('#recco').prop("checked", true).trigger("click");
     } else if (mode == 'agg') {
