@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Lineup and Rumours</title>
-    <meta name="description" content="Festival lineup finder, festival rumour finder">
+    <meta name="description" content="LastFM to Spotify Migrator">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
@@ -85,8 +85,9 @@
                     Splosher</a></a> </div>
             <div class="collapse navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="lineup.html">Lineup and Rumours</a></li>
+                    <li><a href="lineup.html">Lineup and Rumours</a></li>
                     <li><a href="schedule.html">Personalised Schedule</a></li>
+                    <li class="active"><a href="migrator.html">LastFM to Spotify Migration Tool</a></li>
                 </ul>
             </div>
         </div>
@@ -203,8 +204,8 @@
 
         function go(method) {
             $('#spinner').show();
-            // var host = 'http://spotifylastfm.cloudapp.net:80';
-            var host = 'http://localhost:8080';
+            var host = 'http://glasto.cloudapp.net:80/migrator';
+            // var host = 'http://localhost:8081/migrator';
 
             var code = getCode();
             if (!isTokenValid(code)) {
