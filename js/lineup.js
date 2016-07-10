@@ -122,7 +122,7 @@ function fetchResults(festival) {
     $('#spinner').show();
     $('#spinner2').show();
     $('#spinnerspot').show();
-    var host = 'http://glasto.cloudapp.net:80';
+    var host = 'https://api.wellysplosher.com';
 //    var host = 'http://localhost:80';
     var source = getSelectedSource();
     var year = $('#yearsel').val();
