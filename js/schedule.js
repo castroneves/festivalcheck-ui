@@ -222,8 +222,12 @@ function fetchResults(festival) {
                 $(this).initialiseTT();
                 $(this).resizeTimetable();
             });
+            $('#clashfinderbut').unbind('click');
+            $('#clashfinderbut').click(function() {
+                window.open(json.clashfinderUrl);
+            });
             $('#timetable').show();
-
+            $('#clashfinder').show();
 
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -231,6 +235,7 @@ function fetchResults(festival) {
             $('#spinner').hide();
             $('#spinner2').hide();
             $('#spinnerspot').hide();
+            $('#clashfinder').hide();
             displayError('500 Returned From Server');
         }
     });
@@ -243,6 +248,7 @@ function displayError(message) {
     $('#spinner').hide();
     $('#spinner2').hide();
     $('#spinnerspot').hide();
+    $('#clashfinder').hide();
 }
 
 function isTokenValid(token) {
