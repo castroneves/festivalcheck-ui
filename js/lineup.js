@@ -1,6 +1,9 @@
 /**
  * Created by Adam on 26/12/2015.
  */
+
+ var bar;
+
 $(document).ready(function () {
     $('#spinner').hide();
     $('#spinner2').hide();
@@ -117,8 +120,31 @@ function updateButtonsRed() {
     toggleMode();
 }
 
+function createProgressBar(duration) {
+    $('#progressbar').show();
+    bar = new ProgressBar.Line('#progressbar', {
+      strokeWidth: 4,
+      easing: 'easeInOut',
+      duration: duration,
+      color: '#FFEA82',
+      trailColor: '#eee',
+      trailWidth: 1,
+      svgStyle: {width: '100%', height: '100%'}
+    });
+
+    bar.animate(1.0);
+}
+
+function closeProgressBar() {
+    bar.set(1.0);
+    bar.destroy();
+    $('#progressbar').hide();
+}
+
 
 function fetchResults(festival) {
+
+
     $('#spinner').show();
     $('#spinner2').show();
     $('#spinnerspot').show();
@@ -135,9 +161,11 @@ function fetchResults(festival) {
         }
         if (mode == 'listened') {
             var url = host + '/' + festival + "/" + year + "/" + username;
+            createProgressBar(12000);
         }
         else if (mode == 'rec') {
             var url = host + '/rec/' + festival + "/" + year + "/" + username;
+            createProgressBar(18000);
         }
     }
     else if (source == 'spotify') {
@@ -150,9 +178,11 @@ function fetchResults(festival) {
         var mode = getSelectedMode();
         if (mode == 'listened') {
             var url = host + '/spotify/' + festival + '/' + year + "/" + code + "/" + redirect;
+            createProgressBar(18000);
         }
         else if (mode == 'rec') {
             var url = host + '/spotify/rec/' + festival + '/' + year + "/" + code + "/" + redirect;
+            createProgressBar(30000);
         }
     }
 
@@ -172,12 +202,14 @@ function fetchResults(festival) {
                 setTableCss(tr, json[i].status);
                 $('#results').append(tr);
             }
+            closeProgressBar();
             $('#spinner').hide();
             $('#spinner2').hide();
             $('#spinnerspot').hide();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             $('#results').html("ERROR - That festival may not have run that year, or the LastFM account does not exist");
+            closeProgressBar();
             $('#spinner').hide();
             $('#spinner2').hide();
             $('#spinnerspot').hide();

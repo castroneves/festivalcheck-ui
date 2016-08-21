@@ -29,6 +29,27 @@
     min-width: 300px;
 }
 
+.boxed {
+    background-color:rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    padding: 10px;
+    padding-left: 30px;
+}
+
+.boxed-alert-border {
+    min-width: 330px;
+    border-style: solid;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.boxed-alert-green {
+    background-color:rgba(0, 200, 0, 0.6);
+    border-radius: 15px;
+    padding: 10px;
+    padding-left: 30px;
+}
+
 .padmobile {
     padding: 3px;
 }
