@@ -29,6 +29,12 @@
     min-width: 300px;
 }
 
+.width502-nomargin {
+     width:30%;
+     margin: auto;
+     min-width: 300px;
+ }
+
 .boxed {
     background-color:rgba(0, 0, 0, 0.6);
     border-radius: 15px;

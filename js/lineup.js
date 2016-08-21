@@ -126,8 +126,8 @@ function createProgressBar(duration) {
       strokeWidth: 4,
       easing: 'easeInOut',
       duration: duration,
-      color: '#FFEA82',
-      trailColor: '#eee',
+      color: '#0000ff',
+      trailColor: '#FFEA82',
       trailWidth: 1,
       svgStyle: {width: '100%', height: '100%'}
     });
@@ -143,8 +143,6 @@ function closeProgressBar() {
 
 
 function fetchResults(festival) {
-
-
     $('#spinner').show();
     $('#spinner2').show();
     $('#spinnerspot').show();
@@ -161,11 +159,11 @@ function fetchResults(festival) {
         }
         if (mode == 'listened') {
             var url = host + '/' + festival + "/" + year + "/" + username;
-            createProgressBar(12000);
+            createProgressBar(7000);
         }
         else if (mode == 'rec') {
             var url = host + '/rec/' + festival + "/" + year + "/" + username;
-            createProgressBar(18000);
+            createProgressBar(10000);
         }
     }
     else if (source == 'spotify') {
@@ -178,11 +176,11 @@ function fetchResults(festival) {
         var mode = getSelectedMode();
         if (mode == 'listened') {
             var url = host + '/spotify/' + festival + '/' + year + "/" + code + "/" + redirect;
-            createProgressBar(18000);
+            createProgressBar(12000);
         }
         else if (mode == 'rec') {
             var url = host + '/spotify/rec/' + festival + '/' + year + "/" + code + "/" + redirect;
-            createProgressBar(30000);
+            createProgressBar(20000);
         }
     }
 
