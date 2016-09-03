@@ -21,6 +21,7 @@
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
     <link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
+    <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/1.0.1/dist/progressbar.js"></script>
     <script type="text/javascript" src="js/tribal.js"></script>
     <script type="text/javascript" src="js/tribal-shared.js"></script>
     <script type="text/javascript" src="js/tribal-timetable.js"></script>
@@ -60,109 +61,129 @@
 
 
 <div class="container">
-    <div class="row bottom15 text-center">
-        <div class="btn-group btn-group-lg" data-toggle="buttons" id="sourceselect" onchange="toggleSource()">
-            <label class="btn btn-danger active">
-                <input type="radio" name="source" id="lastfm" autocomplete="off" checked> Last.Fm
-            </label>
-            <label class="btn btn-success">
-                <input type="radio" name="source" id="spotify" autocomplete="off"> Spotify
-            </label>
+    <div class=" width502-nomargin boxed-alert-border">
+        <div class="row">
+            <div class="col-md-6 source-select" style="margin-top: 0px">
+                <label for="sourceselect">Select a source:</label><br>
+                <div class="btn-group btn-group" data-toggle="buttons" id="sourceselect" onchange="toggleSource()">
+                    <label class="btn btn-danger active">
+                        <input type="radio" name="source" id="lastfm" autocomplete="off" checked> Last.Fm
+                    </label>
+                    <label class="btn btn-success">
+                        <input type="radio" name="source" id="spotify" autocomplete="off"> Spotify
+                    </label>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="row bottom15 text-center" id="lfmmodediv">
-        <div class="btn-group" data-toggle="buttons" id="modeselect" onchange="toggleModeSelect()">
-            <label class="btn btn-danger active">
-                <input type="radio" name="recmode" id="plays" autocomplete="off" checked> Played Artists
-            </label>
-            <label class="btn btn-danger ">
-                <input type="radio" name="recmode" id="recco" autocomplete="off"> Reccommended Artists
-            </label>
-            <label class="btn btn-danger">
-                <input type="radio" name="recmode" id="both" autocomplete="off"> Aggregate
-            </label>
+        <div class="row">
+            <div class="col-md-12 top15 width502" id="lfmmodediv">
+                <label for="modeselect">Based off listening history, or recomendations:</label><br>
+                <div class="btn-group btn-group-sm" data-toggle="buttons" id="modeselect" onchange="toggleModeSelect()">
+                    <label class="btn btn-danger active">
+                        <input type="radio" name="recmode" id="plays" autocomplete="off" checked> Played Artists
+                    </label>
+                    <label class="btn btn-danger ">
+                        <input type="radio" name="recmode" id="recco" autocomplete="off"> Reccommended
+                    </label>
+                    <label class="btn btn-danger">
+                        <input type="radio" name="recmode" id="both" autocomplete="off"> Aggregate
+                    </label>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="row bottom15 text-center" id="algodiv">
-        <div class="btn-group" data-toggle="buttons" id="algoselect">
-            <label class="btn btn-danger active">
-                <input type="radio" name="aggalgo" id="aplays" autocomplete="off" checked> Prefer Listened
-            </label>
-            <label class="btn btn-danger">
-                <input type="radio" name="aggalgo" id="arecco" autocomplete="off"> Prefer Reccommended
-            </label>
+        <div class="row">
+            <div class="col-md-12 top15 width502" id="algodiv">
+                <label for="algoselect">Select preference:</label><br>
+                <div class="btn-group btn-group-sm" data-toggle="buttons" id="algoselect">
+                    <label class="btn btn-danger active">
+                        <input type="radio" name="aggalgo" id="aplays" autocomplete="off" checked> Prefer Listened
+                    </label>
+                    <label class="btn btn-danger">
+                        <input type="radio" name="aggalgo" id="arecco" autocomplete="off"> Prefer Reccommended
+                    </label>
+                </div>
+            </div>
         </div>
-    </div>
 
-
-    <div class="row width50 top15 text-center" id="listeneddiv">
-        <div class="input-group input-group-lg">
-            <span class="input-group-addon"><i class="fa fa-lastfm-square fa-lg" style="color:#d51007"></i></span>
-            <!--<form>-->
-            <input type="text" class="form-control input-lg" placeholder="Last FM ID" id="lastfmid"  name="lfmusername">
-            <!--</form>-->
+        <div class="row">
+            <div class="col-md-12 top15 width504" id="listeneddiv">
+                <label for="lastfmid">Enter Last.Fm username:</label>
+                <div class="input-group input-group">
+                    <span class="input-group-addon"><i class="fa fa-lastfm-square"
+                                                       style="color:#d51007"></i></span>
+                    <!--<form>-->
+                    <input type="text" class="form-control input" placeholder="Last FM ID" id="lastfmid"
+                           name="lfmusername">
+                    <!--</form>-->
                 <span id="spinner" class="input-group-addon"><span
                         class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
+                </div>
+            </div>
         </div>
-    </div>
 
-
-    <div class="row  top15 width501 text-center" id="spotifyauthdiv">
-        <div class="input-group input-group-lg btn-group-lg" style="width:95%;">
+        <div class="row">
+            <div class="col-md-12  top15 width502" id="spotifyauthdiv">
+                <label for="spotifyauthbut">Authorise Spotify:</label>
+                <div class="input-group input-group btn-group" style="width:95%;">
                 <span class="input-group-addon">
-                    <i id="spotifyauthindno" class="fa fa-close fa-lg" style="color:#d51007"></i>
-                    <i id="spotifyauthindyes" class="fa fa-check fa-lg" style="color:green"></i>
+                    <i id="spotifyauthindno" class="fa fa-close" style="color:#d51007"></i>
+                    <i id="spotifyauthindyes" class="fa fa-check " style="color:green"></i>
                 </span>
 
-            <button type="button" class="btn btn-success" onclick="authWithSpotify()" style="width:100%;"><i
-                    class="fa fa-spotify fa-lg"></i> Connect with Spotify
-            </button>
+                    <button type="button" class="btn btn-success" onclick="authWithSpotify()" style="width:100%;"><i
+                            class="fa fa-spotify fa" id="spotifyauthbut"></i> Connect with Spotify
+                    </button>
             <span id="spinnerspot" class="input-group-addon"><span
                     class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
+                </div>
+            </div>
         </div>
-    </div>
 
 
-    <div class="row top15 width502 text-center">
-        <select class="form-control input-lg" id="yearsel">
-            <option>2017</option>
-            <option selected="selected">2016</option>
-            <option>2015</option>
-            <option>2014</option>
-            <option>2013</option>
-            <option>2012</option>
-            <option>2011</option>
-            <option>2010</option>
-            <option>2009</option>
-            <option>2008</option>
-            <option>2007</option>
-            <option>2006</option>
-        </select>
-    </div>
+        <div class="row">
+            <div class="col-md-6 top15 width503">
+                <label for="yearsel">Select Year:</label>
+                <select class="form-control input" id="yearsel">
+                    <option>2017</option>
+                    <option selected="selected">2016</option>
+                    <option>2015</option>
+                    <option>2014</option>
+                    <option>2013</option>
+                    <option>2012</option>
+                    <option>2011</option>
+                    <option>2010</option>
+                    <option>2009</option>
+                    <option>2008</option>
+                    <option>2007</option>
+                    <option>2006</option>
+                </select>
+            </div>
+
+            <div class="col-md-6  top15 width503">
+                <label for="festsel">Select Festival:</label>
+                <select class="form-control input" id="festsel">
+                    <option value="g">Glastonbury</option>
+                    <option value="iow">Isle of Wight</option>
+                    <option value="lat">Latitude</option>
+                    <option value="download">Download</option>
+                    <option value="reading">Reading</option>
+                    <option value="leeds">Leeds</option>
+                    <option value="vvvchelmsford">V Chelmsford</option>
+                    <option value="vvvstafford">V Staffordshire</option>
+                </select>
+            </div>
+        </div>
 
 
-    <div class="row top15 text-center">
-        <div class="container">
-            <div class="btn-group btn-group-lg" role="group" aria-label="Large button group" id="festivals">
-                <button type="button " class="btn btn-danger" onclick="fetchResults(&#39;g&#39;)">Glastonbury</button>
-                <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;iow&#39;)">Isle of Wight
-                </button>
-                <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;lat&#39;)">Latitude</button>
-                <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;download&#39;)">Download
-                </button>
-                <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;reading&#39;)">Reading</button>
-                <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;leeds&#39;)">Leeds</button>
-                <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;vvvchelmsford&#39;)">V
-                    Chelmsford
-                </button>
-                <button type="button" class="btn btn-danger" onclick="fetchResults(&#39;vvvstafford&#39;)">V Stafford
+        <div class="row  top15 width504" id="godiv">
+            <div class="input-group input-group-lg btn-group-lg" style="width:95%;">
+                <button id="gobut" type="button" class="btn btn-success" onclick="fetchResults($('#festsel').val())"
+                        style="width:100%;">Go!
                 </button>
             </div>
         </div>
     </div>
-
     <script src="js/schedule.js"/>
     <script src="js/main.js"></script>
 
@@ -174,18 +195,27 @@
         @import "css/tribal-timetable.css";
 
 
+
+
+
+
+
+
+
     </style>
     <div class="container">
+        <div id="progressbar"></div>
         <div id="message"></div>
     </div>
 
     <div hidden class="row bottom15 text-center" id="clashfinder" style="margin-top: -25px">
-        <div  class="container">
+        <div class="container">
             <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
-                <button type="button" class="btn btn-primary" id="clashfinderbut" >Show in Clashfinder</button>
+                <button type="button" class="btn btn-primary" id="clashfinderbut">Show in Clashfinder</button>
             </div>
         </div>
     </div>
+
 
     <div hidden class="timetable" data-days="5" data-hours="15"
          style="padding-bottom=0px; overflow-x:auto; overflow-y: hidden; white-space: nowrap;" id="timetable">
@@ -246,6 +276,13 @@
 
   ga('create', 'UA-80610427-1', 'auto');
   ga('send', 'pageview');
+
+
+
+
+
+
+
 
 
 </script>

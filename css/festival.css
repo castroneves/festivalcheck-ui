@@ -24,16 +24,39 @@
 }
 
 .width502 {
+    width:10%;
+    margin: auto;
+    margin-top:15px;
+    min-width: 350px;
+}
+
+.width503 {
+    width:10%;
+    margin: auto;
+    margin-top:15px;
+    min-width: 172px;
+}
+
+.source-select {
     width:30%;
     margin: auto;
     margin-top:15px;
-    min-width: 300px;
+    min-width: 200px;
+}
+
+
+.width504 {
+    width:10%;
+    margin: auto;
+    margin-top:15px;
+    min-width: 326px;
 }
 
 .width502-nomargin {
      width:30%;
      margin: auto;
-     min-width: 300px;
+     min-width: 320px;
+     padding: 15px;
  }
 
 .boxed {
