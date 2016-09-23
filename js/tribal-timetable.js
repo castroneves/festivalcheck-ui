@@ -66,6 +66,9 @@ $(function () {
             }
         });
 
+        jQuery("[rel=tooltip]", this).tooltip();
+        jQuery('.timetable', this).tooltip();
+
         // work out the required heights of each column
         // loop through each day
         for (i = 0; i < daysArr.length; i++) {
@@ -95,10 +98,16 @@ $(function () {
             } else {
                 $(this).data('top', top - (4 * $(this).data('column')) + 1);
             }
+
+            // Fix tooltips
+
+            $(this).tooltip('hide')
+                .attr('data-original-title', "newValue")
+                .tooltip('fixTitle')
+                .tooltip('show');
         });
 
-        jQuery("[rel=tooltip]", this).tooltip();
-        jQuery('.timetable', this).tooltip();
+
 
         jQuery('.tt-day', this).each(function (i) {
             var height = 0;
