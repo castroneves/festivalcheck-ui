@@ -66,6 +66,9 @@ $(function () {
             }
         });
 
+        jQuery("[rel=tooltip]", this).tooltip();
+        jQuery('.timetable', this).tooltip();
+
         // work out the required heights of each column
         // loop through each day
         for (i = 0; i < daysArr.length; i++) {
@@ -95,10 +98,24 @@ $(function () {
             } else {
                 $(this).data('top', top - (4 * $(this).data('column')) + 1);
             }
+
+            // Fix tooltips
+            var tooltip = $(this).data('original-title');
+            var scrobs = $(this).data('scrobs');
+            if (scrobs > 0) {
+                tooltip = tooltip + '</br>Plays: ' + scrobs
+            }
+            var match = $(this).data('match');
+            if (undefined != match && match != 'undefined') {
+                tooltip = tooltip + '</br>Matched on: ' + match;
+            }
+            $(this).tooltip('hide')
+                .attr('data-original-title', tooltip)
+                .tooltip('fixTitle')
+                .tooltip('show');
         });
 
-        jQuery("[rel=tooltip]", this).tooltip();
-        jQuery('.timetable', this).tooltip();
+
 
         jQuery('.tt-day', this).each(function (i) {
             var height = 0;

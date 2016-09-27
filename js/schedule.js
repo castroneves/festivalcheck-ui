@@ -238,7 +238,7 @@ function fetchResults(festival) {
                 if (typeof acts !== "undefined") {
                     $.each(acts, function (j, act) {
                         var clazz = determineClassSched(act, mode);
-                        $('#ttevents').append("<li class=\"tt-event " + clazz + "\" data-id=\"" + act.name + "\" data-day=\"" + i + "\" data-start=\"" + act.ttStart + "\" data-duration=\"" + act.ttDuration + "\" rel=\"tooltip\" unselectable=\"on\">" + act.name + "<br>" + act.stage + "<br>" + act.startTime + " - " + act.endTime + "</li>");
+                        $('#ttevents').append("<li class=\"tt-event " + clazz + "\" data-scrobs=\"" + act.scrobs + "\" data-match=\"" + act.matchString + "\" data-id=\"" + act.name + "\" data-day=\"" + i + "\" data-start=\"" + act.ttStart + "\" data-duration=\"" + act.ttDuration + "\" rel=\"tooltip\" unselectable=\"on\">" + act.name + "<br>" + act.stage + "<br>" + act.startTime + " - " + act.endTime + "</li>");
                     });
                 }
 
@@ -246,7 +246,7 @@ function fetchResults(festival) {
                 if (typeof clashes !== "undefined") {
                     $.each(clashes, function (j, act) {
                         var clazz = determineClassClash(act, mode);
-                        $('#ttevents').append("<li class=\"tt-event " + clazz + "\" data-id=\"" + act.name + "\" data-day=\"" + i + "\" data-start=\"" + act.ttStart + "\" data-duration=\"" + act.ttDuration + "\" rel=\"tooltip\" unselectable=\"on\">" + act.name + "<br>" + act.stage + "<br>" + act.startTime + " - " + act.endTime + "</li>");
+                        $('#ttevents').append("<li class=\"tt-event " + clazz + "\" data-scrobs=\"" + act.scrobs + "\" data-match=\"" + act.matchString + "\" data-id=\"" + act.name + "\" data-day=\"" + i + "\" data-start=\"" + act.ttStart + "\" data-duration=\"" + act.ttDuration + "\" rel=\"tooltip\" unselectable=\"on\">" + act.name + "<br>" + act.stage + "<br>" + act.startTime + " - " + act.endTime + "</li>");
                     });
                 }
 
