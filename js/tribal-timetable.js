@@ -100,9 +100,17 @@ $(function () {
             }
 
             // Fix tooltips
-
+            var tooltip = $(this).data('original-title');
+            var scrobs = $(this).data('scrobs');
+            if (scrobs > 0) {
+                tooltip = tooltip + '</br>Plays: ' + scrobs
+            }
+            var match = $(this).data('match');
+            if (undefined != match && match != 'undefined') {
+                tooltip = tooltip + '</br>Matched on: ' + match;
+            }
             $(this).tooltip('hide')
-                .attr('data-original-title', "newValue")
+                .attr('data-original-title', tooltip)
                 .tooltip('fixTitle')
                 .tooltip('show');
         });
