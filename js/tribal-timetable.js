@@ -102,8 +102,10 @@ $(function () {
             // Fix tooltips
             var tooltip = $(this).data('original-title');
             var scrobs = $(this).data('scrobs');
+            var source = $(this).data('source');
             if (scrobs > 0) {
-                tooltip = tooltip + '</br>Plays: ' + scrobs
+                var prefix = source == 'spotify' ? "Appearances" : "Plays";
+                tooltip = tooltip + '</br>' + prefix + ': ' + scrobs
             }
             var match = $(this).data('match');
             if (undefined != match && match != 'undefined') {
