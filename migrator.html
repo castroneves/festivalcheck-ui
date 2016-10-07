@@ -75,152 +75,86 @@
                     <button type="button" class="btn btn-success" onclick="authWithSpotify()" style="width:100%;"><i
                             class="fa fa-spotify fa" id="spotifyauthbut"></i> Connect with Spotify
                     </button>
-        </div>
-        <div class="row">
-            <div class="col-md-12 top15 width505" id="listeneddiv">
-                <label for="lastfmid">Enter Last.Fm username:</label>
-                <div class="input-group input-group">
+                </div>
+                <div class="row">
+                    <div class="col-md-12 top15 width505" id="listeneddiv">
+                        <label for="lastfmid">Enter Last.Fm username:</label>
+                        <div class="input-group input-group">
                     <span class="input-group-addon"><i class="fa fa-lastfm-square"
                                                        style="color:#d51007"></i></span>
-                    <!--<form>-->
-                    <input type="text" class="form-control input" placeholder="Last FM ID" id="lastfmid"
-                           name="lfmusername">
-                    <!--</form>-->
+                            <!--<form>-->
+                            <input type="text" class="form-control input" placeholder="Last FM ID" id="lastfmid"
+                                   name="lfmusername">
+                            <!--</form>-->
                 <span id="spinner" class="input-group-addon"><span
                         class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 top15 width505">
-                <label for="limitsel">How many tracks to include in playlist / How many artists to follow:</label>
-                <select class="form-control input" id="limitsel">
-                    <option>50</option>
-                    <option>100</option>
-                    <option>200</option>
-                    <option>300</option>
-                    <option>400</option>
-                    <option>500</option>
-                    <option>600</option>
-                    <option>750</option>
-                    <option>1000</option>
-                </select>
-            </div>
-        </div>
+                <div class="row">
+                    <div class="col-md-12 top15 width505">
+                        <label for="limitsel">How many tracks to include in playlist / How many artists to
+                            follow:</label>
+                        <select class="form-control input" id="limitsel">
+                            <option>50</option>
+                            <option>100</option>
+                            <option>200</option>
+                            <option>300</option>
+                            <option>400</option>
+                            <option>500</option>
+                            <option>600</option>
+                            <option>750</option>
+                            <option>1000</option>
+                        </select>
+                    </div>
+                </div>
 
-        <div class="row">
-            <div class="col-md-12 top15 width505">
-                <label for="periodsel">Over what time period should your top tracks come from:</label>
-                <select class="form-control input" id="periodsel">
-                    <option>overall</option>
-                    <option>12month</option>
-                    <option>6month</option>
-                    <option>3month</option>
-                    <option>1month</option>
-                    <option>7day</option>
-                </select>
-            </div>
-        </div>
+                <div class="row">
+                    <div class="col-md-12 top15 width505">
+                        <label for="periodsel">Over what time period should your top tracks come from:</label>
+                        <select class="form-control input" id="periodsel">
+                            <option>overall</option>
+                            <option>12month</option>
+                            <option>6month</option>
+                            <option>3month</option>
+                            <option>1month</option>
+                            <option>7day</option>
+                        </select>
+                    </div>
+                </div>
 
-        <!--<div class="row">-->
-        <!--<div class="col-md-12 top15 width502" id="lfmmodediv">-->
-        <!--<label for="modeselect">Based off listening history, or recomendations:</label><br>-->
-        <!--<div class="btn-group btn-group-sm" data-toggle="buttons" id="modeselect" onchange="toggleModeSelect()">-->
-        <!--<label class="btn btn-danger active">-->
-        <!--<input type="radio" name="recmode" id="plays" autocomplete="off" checked> Played Artists-->
-        <!--</label>-->
-        <!--<label class="btn btn-danger ">-->
-        <!--<input type="radio" name="recmode" id="recco" autocomplete="off"> Reccommended-->
-        <!--</label>-->
-        <!--<label class="btn btn-danger">-->
-        <!--<input type="radio" name="recmode" id="both" autocomplete="off"> Aggregate-->
-        <!--</label>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
+                <div class="row top15 width504" id="gobuttondiv">
+                    <div class="input-group input-group-lg btn-group-lg" style="width:95%;">
+                        <button type="button" class="btn btn-success" onclick="go('toptracks')"
+                                style="width:100%; margin-bottom: 10px"><i
+                                class="fa fa-spotify fa-lg"></i> Create Playlist
+                        </button>
+                        <button type="button" class="btn btn-success" onclick="go('followartists')" style="width:100%;">
+                            <i
+                                    class="fa fa-spotify fa-lg"></i> Follow Artists
+                        </button>
+                    </div>
+                </div>
 
-        <!--<div class="row">-->
-        <!--<div class="col-md-12 top15 width502" id="algodiv">-->
-        <!--<label for="algoselect">Select preference:</label><br>-->
-        <!--<div class="btn-group btn-group-sm" data-toggle="buttons" id="algoselect">-->
-        <!--<label class="btn btn-danger active">-->
-        <!--<input type="radio" name="aggalgo" id="aplays" autocomplete="off" checked> Prefer Listened-->
-        <!--</label>-->
-        <!--<label class="btn btn-danger">-->
-        <!--<input type="radio" name="aggalgo" id="arecco" autocomplete="off"> Prefer Reccommended-->
-        <!--</label>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
-
-        <!--<div class="row">-->
-        <!--<div class="col-md-6 top15 width503">-->
-        <!--<label for="yearsel">Select Year:</label>-->
-        <!--<select class="form-control input" id="yearsel">-->
-        <!--<option>2017</option>-->
-        <!--<option selected="selected">2016</option>-->
-        <!--<option>2015</option>-->
-        <!--<option>2014</option>-->
-        <!--<option>2013</option>-->
-        <!--<option>2012</option>-->
-        <!--<option>2011</option>-->
-        <!--<option>2010</option>-->
-        <!--<option>2009</option>-->
-        <!--<option>2008</option>-->
-        <!--<option>2007</option>-->
-        <!--<option>2006</option>-->
-        <!--</select>-->
-        <!--</div>-->
-
-        <!--<div class="col-md-6  top15 width503">-->
-        <!--<label for="festsel">Select Festival:</label>-->
-        <!--<select class="form-control input" id="festsel">-->
-        <!--<option value="g">Glastonbury</option>-->
-        <!--<option value="iow">Isle of Wight</option>-->
-        <!--<option value="lat">Latitude</option>-->
-        <!--<option value="download">Download</option>-->
-        <!--<option value="reading">Reading</option>-->
-        <!--<option value="leeds">Leeds</option>-->
-        <!--<option value="vvvchelmsford">V Chelmsford</option>-->
-        <!--<option value="vvvstafford">V Staffordshire</option>-->
-        <!--</select>-->
-        <!--</div>-->
-        <!--</div>-->
-
-        <div class="row top15 width504" id="gobuttondiv">
-            <div class="input-group input-group-lg btn-group-lg" style="width:95%;">
-                <button type="button" class="btn btn-success" onclick="go('toptracks')"
-                        style="width:100%; margin-bottom: 10px"><i
-                        class="fa fa-spotify fa-lg"></i> Create Playlist
-                </button>
-                <button type="button" class="btn btn-success" onclick="go('followartists')" style="width:100%;"><i
-                        class="fa fa-spotify fa-lg"></i> Follow Artists
-                </button>
-            </div>
-        </div>
-
-        <!--<div class="row  top15 width504" id="godiv">-->
-            <!--<div class="input-group input-group-lg btn-group-lg" style="width:95%;">-->
+                <!--<div class="row  top15 width504" id="godiv">-->
+                <!--<div class="input-group input-group-lg btn-group-lg" style="width:95%;">-->
                 <!--<button id="gobut" type="button" class="btn btn-success" onclick="fetchResults($('#festsel').val())"-->
-                        <!--style="width:100%;">Go!-->
+                <!--style="width:100%;">Go!-->
                 <!--</button>-->
-            <!--</div>-->
-        <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+            <!--<script src="js/schedule.js"/>-->
+            <script src="js/main.js"></script>
+
+
+        </div>
     </div>
-    <!--<script src="js/schedule.js"/>-->
-    <script src="js/main.js"></script>
+
+    <!--<div class="boxed-alert">-->
 
 
-</div>
-
-
-<div class="container">
-
-    <div class="boxed-alert">
-
-
-    </div>
+    <!--</div>-->
 
 
     <div class="container">
@@ -246,6 +180,7 @@
         });
 
         function go(method) {
+            displayError('');
             $('#spinner').show();
             var host = 'https://api.wellysplosher.com/migrator';
             //var host = 'http://localhost:8081/migrator';
@@ -310,10 +245,11 @@
         }
 
 
+
+
     </script>
     <script src="js/main.js"></script>
 
-    <hr>
 
     <script>
         (function (i, s, o, g, r, a, m) {
@@ -332,9 +268,9 @@
         ga('send', 'pageview');
 
 
-    </script>
 
-</div>
+
+    </script>
 
 
 </body>
