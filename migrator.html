@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
     <link href="css/tribal-timetable.css" rel="stylesheet">
+    <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/1.0.1/dist/progressbar.js"></script>
     <script type="text/javascript" async="" src="js/ga.js"></script>
     <script type="text/javascript" src="js/jquery.ba-resize.js"></script>
     <script type="text/javascript" src="js/bootstrap-tooltip.js"></script>
@@ -157,10 +158,10 @@
     <!--</div>-->
 
 
-    <div class="container">
+    <div class="paddesktop top15 container">
+        <div id="progressbar"></div>
         <div id="message"></div>
     </div>
-
 
     <!--<div class="row">-->
     <!--<table id="results" class="table table-striped"></table>-->
@@ -197,6 +198,8 @@
             var redirect = encodeURIComponent('http://www.wellysplosher.com/migrator.html');
             var url = host + '/' + method + '/' + limit + '/' + period + '/' + username + '/' + code + '/' + redirect;
 
+            createProgressBar(20000);
+
             $.ajax({
                 url: url,
                 dataType: 'JSON',
@@ -204,10 +207,13 @@
                 success: function (json) {
                     $('#spinner').hide();
                     displayError('Done!');
+                    closeProgressBar();
+
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     displayError("An Error occured, please try again later");
                     $('#spinner').hide();
+                    closeProgressBar();
                 }
             });
         }
@@ -242,6 +248,27 @@
             var url = encodeURIComponent('http://www.wellysplosher.com/migrator.html');
             //var url = 'http://www.wellysplosher.com/schedule.html?source=spotify';
             window.location.replace('https://accounts.spotify.com/authorize/?client_id=4f9ea44544be4b789e54bfd9c23ebdc9&response_type=code&scope=user-read-private%20user-read-email%20user-library-read%20playlist-modify-public%20playlist-modify-private%20playlist-read-private%20user-follow-modify&redirect_uri=' + url);
+        }
+
+        function createProgressBar(duration) {
+            $('#progressbar').show();
+            bar = new ProgressBar.Line('#progressbar', {
+                strokeWidth: 4,
+                easing: 'easeInOut',
+                duration: duration,
+                color: '#0000ff',
+                trailColor: '#FFEA82',
+                trailWidth: 1,
+                svgStyle: {width: '100%', height: '100%'}
+            });
+
+            bar.animate(1.0);
+        }
+
+        function closeProgressBar() {
+            bar.set(1.0);
+            bar.destroy();
+            $('#progressbar').hide();
         }
 
 
