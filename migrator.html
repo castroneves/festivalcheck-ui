@@ -76,19 +76,21 @@
                             class="fa fa-spotify fa" id="spotifyauthbut"></i> Connect with Spotify
                     </button>
                 </div>
+                <iframe id="remember" name="remember" class="hidden" src="/content/blank"></iframe>
                 <div class="row">
                     <div class="col-md-12 top15 width505" id="listeneddiv">
                         <label for="lastfmid">Enter Last.Fm username:</label>
-                        <div class="input-group input-group">
-                    <span class="input-group-addon"><i class="fa fa-lastfm-square"
-                                                       style="color:#d51007"></i></span>
-                            <!--<form>-->
-                            <input type="text" class="form-control input" placeholder="Last FM ID" id="lastfmid"
-                                   name="lfmusername">
-                            <!--</form>-->
-                <span id="spinner" class="input-group-addon"><span
-                        class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
-                        </div>
+                        <form target="remember" method="post" action="/content/blank">
+                            <div class="input-group input-group">
+                                <span class="input-group-addon"><i class="fa fa-lastfm-square"
+                                                                style="color:#d51007"></i></span>
+                                <input type="text" class="form-control input" placeholder="Last FM ID" id="lastfmid"
+                                       name="lfmusername">
+                                <button id="submit_button" type="submit" class="hidden"></button>
+                                <span id="spinner" class="input-group-addon"><span
+                                    class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="row">
@@ -180,6 +182,7 @@
         });
 
         function go(method) {
+            $("#submit_button").click();
             displayError('');
             $('#spinner').show();
             var host = 'https://api.wellysplosher.com/migrator';
@@ -247,6 +250,7 @@
 
 
 
+
     </script>
     <script src="js/main.js"></script>
 
@@ -266,6 +270,7 @@
 
         ga('create', 'UA-80610427-1', 'auto');
         ga('send', 'pageview');
+
 
 
 

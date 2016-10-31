@@ -143,6 +143,7 @@ function closeProgressBar() {
 
 
 function fetchResults(festival) {
+    $("#submit_button").click();
     $('#spinner').show();
     $('#spinner2').show();
     $('#spinnerspot').show();

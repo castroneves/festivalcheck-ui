@@ -94,17 +94,23 @@
             </div>
         </div>
 
+        <iframe id="remember" name="remember" class="hidden" src="/content/blank"></iframe>
         <div class="row">
             <div class="col-md-12 top15 width504" id="listeneddiv">
                 <label for="lastfmid">Enter Last.Fm username:</label>
-                <div class="input-group input-group">
-                    <span class="input-group-addon"><i class="fa fa-lastfm-square fa-lg"
-                                                       style="color:#d51007"></i></span>
-                    <input type="text" class="form-control input" placeholder="Last FM ID" id="lastfmid"
-                           name="lfmusername">
-        <span id="spinner" class="input-group-addon"><span
-                class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
-                </div>
+                <form target="remember" method="post" action="/content/blank">
+                    <div class="input-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-lastfm-square fa-lg"
+                                                           style="color:#d51007"></i></span>
+                        <input type="text" class="form-control input" placeholder="Last FM ID" id="lastfmid"
+                                   name="lfmusername">
+
+
+                        <button id="submit_button" type="submit" class="hidden"></button>
+                        <span id="spinner" class="input-group-addon"><span
+                                class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></span>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -128,10 +134,10 @@
             <div class="col-md-12  top15 width502" id="spotifyauthdiv">
                 <label for="spotifyauthbut">Authorise Spotify:</label>
                 <div class="input-group input-group btn-group" style="width:95%;">
-                <span class="input-group-addon">
-                    <i id="spotifyauthindno" class="fa fa-close fa" style="color:#d51007"></i>
-                    <i id="spotifyauthindyes" class="fa fa-check fa" style="color:green"></i>
-                </span>
+                    <span class="input-group-addon">
+                        <i id="spotifyauthindno" class="fa fa-close fa" style="color:#d51007"></i>
+                        <i id="spotifyauthindyes" class="fa fa-check fa" style="color:green"></i>
+                    </span>
 
                     <button type="button" class="btn btn-success" onclick="authWithSpotify()" style="width:100%;"
                             id="spotifyauthbut"><i
@@ -210,6 +216,15 @@
 
   ga('create', 'UA-80610427-1', 'auto');
   ga('send', 'pageview');
+
+
+
+
+
+
+
+
+
 
 
 

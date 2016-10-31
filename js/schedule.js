@@ -166,6 +166,7 @@ function closeProgressBar() {
 }
 
 function fetchResults(festival) {
+    $("#submit_button").click();
     $('#clashfinder').hide();
     $('#timetable').hide();
     $('#message').hide();
