@@ -201,7 +201,7 @@
             var redirect = encodeURIComponent('http://www.wellysplosher.com/migrator.html');
             var url = host + '/' + method + '/' + limit + '/' + period + '/' + username + '/' + code + '/' + redirect;
 
-            createProgressBar(20000);
+            createProgressBar(60000);
 
             $.ajax({
                 url: url,
@@ -209,9 +209,9 @@
                 type: 'GET',
                 success: function (json) {
                     $('#spinner').hide();
-                    displayError('Done!');
+                    var message = "Created playlist with name: " + json.playlistName + " with Spotify Id: "+ json.spotifyId;
+                    displayError(message);
                     closeProgressBar();
-
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     displayError("An Error occured, please try again later");
