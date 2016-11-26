@@ -201,7 +201,20 @@
             var redirect = encodeURIComponent('http://www.wellysplosher.com/migrator.html');
             var url = host + '/' + method + '/' + limit + '/' + period + '/' + username + '/' + code + '/' + redirect;
 
-            createProgressBar(60000);
+
+            if( limit < 200) {
+                createProgressBar(6000);
+            } else if ( limit < 400) {
+                createProgressBar(10000);
+            } else if ( limit < 600) {
+                createProgressBar(15000);
+            } else if ( limit < 800) {
+                createProgressBar(20000);
+            } else{
+                createProgressBar(45000);
+            }
+
+
 
             $.ajax({
                 url: url,
