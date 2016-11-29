@@ -203,15 +203,15 @@
 
 
             if( limit < 200) {
-                createProgressBar(6000);
-            } else if ( limit < 400) {
                 createProgressBar(10000);
-            } else if ( limit < 600) {
-                createProgressBar(15000);
-            } else if ( limit < 800) {
+            } else if ( limit < 400) {
                 createProgressBar(20000);
+            } else if ( limit < 600) {
+                createProgressBar(40000);
+            } else if ( limit < 800) {
+                createProgressBar(60000);
             } else{
-                createProgressBar(45000);
+                createProgressBar(90000);
             }
 
 
