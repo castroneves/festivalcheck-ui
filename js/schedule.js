@@ -97,6 +97,7 @@ function toggleSource() {
     if ($('#lastfm').is(':checked')) {
         //hide spotify stuff
         $('#spotifyauthdiv').hide();
+        $('#playlistdiv').hide();
         $('#lfmmodediv').show();
         $('#listeneddiv').show();
         toggleModeSelect();
@@ -111,6 +112,7 @@ function toggleSource() {
 
         //show spotify button
         $('#spotifyauthdiv').show();
+        $('#playlistdiv').show();
 
         if (isTokenValid(getCode())) {
             $('#spotifyauthindyes').show();
@@ -173,8 +175,8 @@ function fetchResults(festival) {
     $('#spinner').show();
     $('#spinner2').show();
     $('#spinnerspot').show();
-    var host = 'https://api.wellysplosher.com';
-//    var host = 'http://localhost:80';
+    // var host = 'https://api.wellysplosher.com';
+   var host = 'http://localhost:80';
     var year = $('#yearsel').val();
     var source = getSelectedSource();
     if (source == 'lastfm') {
@@ -205,18 +207,19 @@ function fetchResults(festival) {
             return;
         }
         var redirect = encodeURIComponent('http://www.wellysplosher.com/schedule.html?source=spotify');
+        var playlists = getSelectedPlaylists();
         var mode = getSelectedMode();
         if (mode == 'listened') {
-            var url = host + '/s/spotify/' + festival + '/' + year + "/" + code + "/" + redirect;
+            var url = host + '/s/spotify/' + festival + '/' + year + "/" + code + "/" + redirect + "?externalPlaylists=" + playlists;
             createProgressBar(20000);
         }
         else if (mode == 'rec') {
-            var url = host + '/s/spotify/rec/' + festival + '/' + year + "/" + code + "/" + redirect;
+            var url = host + '/s/spotify/rec/' + festival + '/' + year + "/" + code + "/" + redirect+ "?externalPlaylists=" + playlists;
             createProgressBar(25000);
         }
         else if (mode == 'agg') {
             var algo = getSelectedAlgo();
-            var url = host + '/s/h/spotify/' + algo + '/' + festival + '/' + year + "/" + code + "/" + redirect;
+            var url = host + '/s/h/spotify/' + algo + '/' + festival + '/' + year + "/" + code + "/" + redirect+ "?externalPlaylists=" + playlists;
             createProgressBar(30000);
         }
     }
@@ -383,6 +386,16 @@ function getSelectedMode() {
     }
     else if ($('#both').is(':checked')) {
         return 'agg';
+    }
+}
+
+function getSelectedPlaylists() {
+    if ($('#pown').is(':checked')) {
+        return 'false';
+    }
+    else if ($('#pall').is(':checked')) {
+        return 'true';
+
     }
 }
 
